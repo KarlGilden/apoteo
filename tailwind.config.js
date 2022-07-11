@@ -8,9 +8,11 @@ module.exports = {
     extend: {},
     colors: {
       "primary": "#2f323a",
+      "primary-dark": "#1f2126",
       "secondary": "#B12236",
       "white": "#fff",
-      "black": "#000"
+      "black": "#000",
+      "transparent": "transparent"
     },
     fontFamily: {
     },
