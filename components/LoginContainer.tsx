@@ -3,8 +3,8 @@ import FormInput from './FormInput'
 
 const LoginContainer = () => {
   return (
-    <div className='w-full max-w-[400px] m-auto flex flex-col justify-between p-5 bg-white rounded-md' >
-        <h2 className='text-5xl mb-3'>Login</h2>
+    <div className='w-full max-w-[400px] m-auto flex flex-col justify-between p-5  rounded-md' >
+        <h2 className='text-5xl mb-3 text-white'>Login</h2>
 
         <FormInput type={"text"} label={"Email"}/>
 
