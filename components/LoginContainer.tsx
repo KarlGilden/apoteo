@@ -1,5 +1,6 @@
 import React from 'react'
 import FormInput from './FormInput'
+import { signIn, signOut, useSession } from "next-auth/react"
 
 const LoginContainer = () => {
   return (
@@ -10,7 +11,7 @@ const LoginContainer = () => {
 
         <FormInput type={"password"} label={"Password"}/>
 
-        <button className='bg-secondary p-4 rounded-md text-white'>Login</button>
+        <button onClick={()=>{signIn()}} className='bg-secondary p-4 rounded-md text-white'>Login</button>
   </div>
   )
 }

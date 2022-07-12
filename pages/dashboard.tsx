@@ -1,0 +1,15 @@
+import React from 'react'
+import { useSession } from "next-auth/react"
+
+const dashboard = () => {
+    const { data: session, status } = useSession()
+    const loading = status === 'loading'
+
+    if (typeof window !== 'undefined' && loading) return null
+    if (!session) { return  <p>Unauthed</p> }
+
+  
+    return <a href="/api/auth/signin">Success</a>
+}
+
+export default dashboard
