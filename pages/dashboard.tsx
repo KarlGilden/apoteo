@@ -6,10 +6,12 @@ const Dashboard = () => {
     const loading = status === 'loading'
 
     if (typeof window !== 'undefined' && loading) return null
-    if (!session) { return  <p>Unauthed</p> }
-
+    if (!session) { 
+        return <p>Unauthed</p> 
+    }else if(session){
+        return <p>Success</p>
+    }
   
-    return <p>Success</p>
 }
 
 export default Dashboard
