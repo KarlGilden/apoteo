@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import IssueItem from '../components/IssueItem';
+import IssueModal from '../components/IssueModal'
 import LogNumInput from '../components/LogNumInput'
 
 const NewLog = () => {
+
+    const [showModal, setShowModal] = useState(false);
 
     const [data, setData] = useState({
         covid: 0,
@@ -19,6 +23,29 @@ const NewLog = () => {
         compounding: 0,
         yellowCards: 0
     })
+
+    const openModal = () => {
+        setShowModal(true)
+        document.querySelector('body')?.classList.add('overflow-hidden')
+    }
+
+    const closeModal = () => {
+        setShowModal(false)
+        document.querySelector('body')?.classList.remove('overflow-hidden')
+    }
+
+    const [issues, setIssues] = useState([
+        {
+            title: "Example 1",
+            description: "blah blah blah",
+            tags: "tag1,tag2,tag3"
+        },
+        {
+            title: "Example 2",
+            description: "blah blha blah",
+            tags: "a,b,b"
+        }
+    ])
 
     const onValueChange = (key:string, value:string) => {
         setData({ ...data, [key]: value })
@@ -38,7 +65,8 @@ const NewLog = () => {
 
   return (
     <>
-    <div className='h-[72px] w-full bg-secondary'></div>
+    <div className={`h-[72px] w-full bg-secondary `}></div>
+    <IssueModal show={showModal} handleClose={()=>closeModal()}/>
     <div className='h-screen'>
         <div className='w-full bg-primary p-10 flex flex-col justify-between'>
             <div className='flex flex-col sm:flex-row h-full'>
@@ -75,12 +103,24 @@ const NewLog = () => {
                         <LogNumInput name="Yellow Cards" inputKey="yellowCards" onValueChange={onValueChange}/>
                     </div>
                 </div>
+                <div className='p-1'></div>
                 <div className='flex flex-col w-full'>
                     <div className='w-full h-full '>
+                        
                         <div className='w-full bg-secondary p-3'>
                             <h2 className=''>Issues</h2>
                         </div>
-                        
+
+                        {issues.map(value=>{
+                            return(
+                                <IssueItem value={value}/>
+                            )
+                        })}
+
+                        <div className='m-3 text-center'>
+                            <button onClick={()=>{openModal()}} className='p-3 w-[90%] hover:bg-primary-light bg-primary-dark rounded-md text-white'>New issue +</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
