@@ -24,6 +24,21 @@ const NewLog = () => {
         yellowCards: 0
     })
 
+    const [issues, setIssues] = useState([
+        {
+            id:1,
+            title: "Example 1",
+            description: "blah blah blah",
+            tags: "tag1,tag2,tag3"
+        },
+        {
+            id:2,
+            title: "Example 2",
+            description: "blah blha blah",
+            tags: "a,b,b"
+        }
+    ])
+
     const openModal = () => {
         setShowModal(true)
         document.querySelector('body')?.classList.add('overflow-hidden')
@@ -33,19 +48,6 @@ const NewLog = () => {
         setShowModal(false)
         document.querySelector('body')?.classList.remove('overflow-hidden')
     }
-
-    const [issues, setIssues] = useState([
-        {
-            title: "Example 1",
-            description: "blah blah blah",
-            tags: "tag1,tag2,tag3"
-        },
-        {
-            title: "Example 2",
-            description: "blah blha blah",
-            tags: "a,b,b"
-        }
-    ])
 
     const onValueChange = (key:string, value:string) => {
         setData({ ...data, [key]: value })
@@ -66,7 +68,7 @@ const NewLog = () => {
   return (
     <>
     <div className={`h-[72px] w-full bg-secondary `}></div>
-    <IssueModal show={showModal} handleClose={()=>closeModal()}/>
+    <IssueModal issues={issues} setIssues={()=>setIssues} show={showModal} handleClose={()=>closeModal()}/>
     <div className='h-screen'>
         <div className='w-full bg-primary p-10 flex flex-col justify-between'>
             <div className='flex flex-col sm:flex-row h-full'>
@@ -106,14 +108,14 @@ const NewLog = () => {
                 <div className='p-1'></div>
                 <div className='flex flex-col w-full'>
                     <div className='w-full h-full '>
-                        
+
                         <div className='w-full bg-secondary p-3'>
                             <h2 className=''>Issues</h2>
                         </div>
 
                         {issues.map(value=>{
                             return(
-                                <IssueItem value={value}/>
+                                <IssueItem key={value.id} value={value}/>
                             )
                         })}
 
