@@ -82,15 +82,16 @@ const NewLog = () => {
         <div className='px-10 pt-10'>
             <input 
             value={data.date} 
-            className='bg-transparent text-white' 
+            className='bg-transparent text-white text-xl' 
             type="date"
             onChange={(e)=>onValueChange("date", e.target.value)}
+
             />
         </div>
         <div className='w-full bg-primary p-10 flex flex-col justify-between'>
             <div className='flex flex-col sm:flex-row h-full'>
                 <div className='flex flex-col sm:flex-row w-full items-center mb-10 sm:items-start'>
-                    <div className='w-full'>
+                    <div className='w-full sm:pr-3'>
                         <p className='text-white'>Category 1</p>
                         <hr className='text-white mb-1' />
                         <LogNumInput value={data.discharge} name="Discharge" inputKey="discharge" onValueChange={onValueChange}/>
@@ -114,7 +115,7 @@ const NewLog = () => {
                         <LogNumInput value={data.binocrit} name="Binocrit" inputKey="binocrit" onValueChange={onValueChange}/>
                     </div>
                     <div className='p-1'></div>
-                    <div className='w-full'>
+                    <div className='w-full sm:pr-3'>
                         <p className='text-white'>Category 3</p>
                         <hr className='text-white mb-1' />
                         <LogNumInput value={data.blisterPacks} name="Blister Packs" inputKey="blisterPacks" onValueChange={onValueChange}/>

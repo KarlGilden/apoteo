@@ -9,10 +9,10 @@ interface IProps{
 }
 const LogNumInput = ({name, inputKey, onValueChange, value}:IProps) => {
   return (
-    <div className='flex justify-between w-full sm:w-[200px]'>
+    <div className='flex justify-between w-full sm:w-full'>
         <label htmlFor="" className='text-sm text-white'>{name}</label>
         <input 
-        className='w-[100px] text-sm p-1 sm:w-[75px] h-[15px]' 
+        className='w-[100px] text-sm p-1 sm:w-[50px] md:w-[75px] py-[1px] p-[4px]' 
         type="number"
         value={value}
         onChange={(e)=>{
