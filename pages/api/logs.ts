@@ -9,6 +9,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       console.log(req.body)
         var item = {
           'id': Date.now() + Math.floor(Math.random() * 100),
+          "date": req.body.date,
           "covid": req.body.covid,
           "discharge": req.body.discharge,
           "outp": req.body.outp,

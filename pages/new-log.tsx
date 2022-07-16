@@ -6,8 +6,8 @@ import LogNumInput from '../components/LogNumInput'
 const NewLog = () => {
 
     const [showModal, setShowModal] = useState(false);
-
     const [data, setData] = useState({
+        date: new Date().toLocaleDateString('en-CA'),
         covid: 0,
         discharge: 0,
         outp: 0,
@@ -78,40 +78,54 @@ const NewLog = () => {
     <>
     <div className={`h-[72px] w-full bg-secondary `}></div>
     <IssueModal issues={issues} setIssues={setIssues} show={showModal} handleClose={()=>closeModal()}/>
-    <div className='h-screen'>
+    <div className='h-screen bg-primary'>
+        <div className='px-10 pt-10'>
+            <input 
+            value={data.date} 
+            className='bg-transparent text-white' 
+            type="date"
+            onChange={(e)=>onValueChange("date", e.target.value)}
+            />
+        </div>
         <div className='w-full bg-primary p-10 flex flex-col justify-between'>
             <div className='flex flex-col sm:flex-row h-full'>
                 <div className='flex flex-col sm:flex-row w-full items-center mb-10 sm:items-start'>
                     <div className='w-full'>
-                        <LogNumInput name="Discharge" inputKey="discharge" onValueChange={onValueChange}/>
+                        <p className='text-white'>Category 1</p>
+                        <hr className='text-white mb-1' />
+                        <LogNumInput value={data.discharge} name="Discharge" inputKey="discharge" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Out Patient" inputKey="outp" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.outp} name="Out Patient" inputKey="outp" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="GP" inputKey="gp" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.gp} name="GP" inputKey="gp" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="ED" inputKey="ed" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.ed} name="ED" inputKey="ed" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Paediatric" inputKey="paediatric" onValueChange={onValueChange}/>
+                        <p className='text-white'>Category 2</p>
+                        <hr className='text-white mb-1' />
+                        <LogNumInput value={data.paediatric} name="Paediatric" inputKey="paediatric" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Eylea" inputKey="eylea" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.eylea} name="Eylea" inputKey="eylea" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Bicillin" inputKey="bicillin" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.bicillin} name="Bicillin" inputKey="bicillin" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Ferinject" inputKey="ferinject" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.ferinject} name="Ferinject" inputKey="ferinject" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Binocrit" inputKey="binocrit" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.binocrit} name="Binocrit" inputKey="binocrit" onValueChange={onValueChange}/>
                     </div>
                     <div className='p-1'></div>
                     <div className='w-full'>
-                        <LogNumInput name="Blister Packs" inputKey="blisterPacks" onValueChange={onValueChange}/>
+                        <p className='text-white'>Category 3</p>
+                        <hr className='text-white mb-1' />
+                        <LogNumInput value={data.blisterPacks} name="Blister Packs" inputKey="blisterPacks" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Aclasta" inputKey="aclasta" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.aclasta} name="Aclasta" inputKey="aclasta" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Covid" inputKey="covid" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.covid} name="Covid" inputKey="covid" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Compounding" inputKey="compounding" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.compounding} name="Compounding" inputKey="compounding" onValueChange={onValueChange}/>
                         <div className='p-1'></div>
-                        <LogNumInput name="Yellow Cards" inputKey="yellowCards" onValueChange={onValueChange}/>
+                        <LogNumInput value={data.yellowCards} name="Yellow Cards" inputKey="yellowCards" onValueChange={onValueChange}/>
                     </div>
                 </div>
                 <div className='p-1'></div>
