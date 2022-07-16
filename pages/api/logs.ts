@@ -1,13 +1,14 @@
 import db from '../../aws/db.js';
 import { marshall } from "@aws-sdk/util-dynamodb";
 import type { NextApiRequest, NextApiResponse } from 'next'
+import {v4 as uuidv4} from 'uuid';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === 'PUT') {
       console.log(req.body)
         var item = {
-          'id': 2,
+          'id': Date.now() + Math.floor(Math.random() * 100),
           "covid": req.body.covid,
           "discharge": req.body.discharge,
           "outp": req.body.outp,
