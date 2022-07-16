@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react"
+import { GetServerSideProps, InferGetStaticPropsType, NextPage } from 'next'
+import DashboardContainer from '../components/DashboardContainer'
 
-const Dashboard = () => {
-    const { data: session, status } = useSession()
-    const loading = status === 'loading'
+const Dashboard: NextPage  = ()=> {
 
-    if (typeof window !== 'undefined' && loading) return null
-    if (!session) { 
-        return <p>Unauthed</p> 
-    }else if(session){
-        return <p>Success</p>
-    }
-  
+    return(        
+        <>
+        <div className={`h-[72px] w-full bg-secondary `}></div>
+        <div className='h-screen bg-primary p-10'>
+            <DashboardContainer/>
+        </div>
+        </>
+    )
 }
 
 export default Dashboard

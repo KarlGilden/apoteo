@@ -45,12 +45,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
       if (req.method === 'GET') {
         var getParams = {
-            TableName: 'Logs',
-            Key: {
-                'id': {N: '1'}
-            },
-            ProjectionExpression: 'content'
-          };
+          TableName: 'Logs',
+          Key: {
+            'id': {N: '1657944671943'}
+          },
+          ProjectionExpression: 'bicillin'
+        };
     
           db.getItem(getParams, function(err, data) {
             if (err) {
