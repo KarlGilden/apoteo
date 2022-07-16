@@ -21,7 +21,15 @@ const NewLog = () => {
         blisterPacks: 0,
         aclasta: 0,
         compounding: 0,
-        yellowCards: 0
+        yellowCards: 0,
+        issues: [
+            {
+                id: 0,
+                title: "",
+                description: "",
+                tags: ""
+            }
+        ]
     })
 
     const [issues, setIssues] = useState([
@@ -54,6 +62,7 @@ const NewLog = () => {
     }
 
     const handleSubmit = async () => {
+        data.issues = issues
         await fetch('/api/logs', {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
@@ -68,7 +77,7 @@ const NewLog = () => {
   return (
     <>
     <div className={`h-[72px] w-full bg-secondary `}></div>
-    <IssueModal issues={issues} setIssues={()=>setIssues} show={showModal} handleClose={()=>closeModal()}/>
+    <IssueModal issues={issues} setIssues={setIssues} show={showModal} handleClose={()=>closeModal()}/>
     <div className='h-screen'>
         <div className='w-full bg-primary p-10 flex flex-col justify-between'>
             <div className='flex flex-col sm:flex-row h-full'>

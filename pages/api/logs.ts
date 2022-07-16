@@ -21,7 +21,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           "blisterPacks": req.body.blisterPacks,
           "aclasta": req.body.aclasta,
           "compounding": req.body.compounding,
-          "yellowCards": req.body.yellowCards
+          "yellowCards": req.body.yellowCards,
+          "issues": req.body.issues
         }
         console.log(item)
         var putParams = {
