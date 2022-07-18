@@ -1,65 +1,15 @@
-import db from '../../aws/db.js';
 import { marshall } from "@aws-sdk/util-dynamodb";
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {v4 as uuidv4} from 'uuid';
+import db from '../../util/db';
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-
-    if (req.method === 'PUT') {
-      console.log(req.body)
-        var item = {
-          'id': Date.now() + Math.floor(Math.random() * 100),
-          "date": req.body.date,
-          "covid": req.body.covid,
-          "discharge": req.body.discharge,
-          "outp": req.body.outp,
-          "gp": req.body.gp,
-          "ed": req.body.ed,
-          "paediatric": req.body.paediatric,
-          "eylea": req.body.eylea,
-          "bicillin": req.body.bicillin,
-          "ferinject": req.body.ferinject,
-          "binocrit": req.body.binocrit,
-          "blisterPacks": req.body.blisterPacks,
-          "aclasta": req.body.aclasta,
-          "compounding": req.body.compounding,
-          "yellowCards": req.body.yellowCards,
-          "issues": req.body.issues
-        }
-        console.log(item)
-        var putParams = {
-            TableName: 'Logs',
-            Item: marshall(item),
-          };
-    
-          db.putItem(putParams, function(err, data) {
-            if (err) {
-              console.log("Error", err);
-              res.status(500).json(err)
-            } else {
-              console.log("Success", data);
-              res.status(200).json(data)
-            }
-          });
-      }
-
-      if (req.method === 'GET') {
-        var getParams = {
-          TableName: 'Logs',
-          Key: {
-            'id': {N: '1657944671943'}
-          },
-          ProjectionExpression: 'bicillin'
-        };
-    
-          db.getItem(getParams, function(err, data) {
-            if (err) {
-              console.log("Error", err);
-              res.status(404).json(err)
-            } else {
-              console.log("Success", data);
-              res.status(200).json(data)
-            }
-          });
-      }
+export default async (req:NextApiRequest, res:NextApiResponse ) => {
+  try {
+    const { slug } = req.body;
+    const entries = await db.collection('entries').get();
+    const entriesData = entries.docs.map(entry => entry.data());
+    console.log(entriesData)
+    res.status(200).json(entriesData)
+  }catch(error:any){
+    res.status(400).end();
+  }
 }
