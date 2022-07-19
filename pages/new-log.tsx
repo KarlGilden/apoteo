@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import IssueItem from '../components/IssueItem';
 import IssueModal from '../components/IssueModal'
 import LogNumInput from '../components/LogNumInput'
+import Router from "next/router";
 
 const NewLog = () => {
 
@@ -71,6 +72,7 @@ const NewLog = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            Router.push("/dashboard");
         })
     }
 

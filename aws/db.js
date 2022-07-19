@@ -6,6 +6,6 @@ AWS.config.update({
   region: 'ap-southeast-2'
 });
 
-const db = new AWS.DynamoDB({ apiVersion: 'latest' });
+const db = new AWS.DynamoDB.DocumentClient({ apiVersion: 'latest' });
 
 export default db;

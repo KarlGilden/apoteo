@@ -1,15 +1,54 @@
-import { marshall } from "@aws-sdk/util-dynamodb";
 import type { NextApiRequest, NextApiResponse } from 'next'
-import db from '../../util/db';
+import { connectToDatabase } from "../../util/db";
+import ISODate from 'mongodb'
 
 export default async (req:NextApiRequest, res:NextApiResponse ) => {
-  try {
-    const { slug } = req.body;
-    const entries = await db.collection('entries').get();
-    const entriesData = entries.docs.map(entry => entry.data());
-    console.log(entriesData)
-    res.status(200).json(entriesData)
-  }catch(error:any){
-    res.status(400).end();
+  let { db } = await connectToDatabase();
+
+  if (req.method === 'PUT') {
+    try{
+      const entries = db.collection("Entries");
+      const result = await entries.insertOne({
+        date: new Date(req.body.date),
+        covid: req.body.covid,
+        discharge: req.body.discharge,
+        outp: req.body.outp,
+        gp: req.body.gp,
+        ed: req.body.ed,
+        paediatric: req.body.paediatric,
+        eylea: req.body.eylea,
+        bicillin: req.body.bicillin,
+        ferinject: req.body.ferinject,
+        binocrit: req.body.binocrit,
+        blisterPacks: req.body.blisterPacks,
+        aclasta: req.body.aclasta,
+        compounding: req.body.compounding,
+        yellowCards: req.body.yellowCards,
+        issues: req.body.issues
+      })
+      .then(response => {
+        res.status(201).json({response})
+      });
+    }catch(error: any){
+      res.status(500).json(error)
+    }
+
+  }
+
+  if (req.method === 'GET') {
+    try{
+      const entries = db.collection("Entries")
+      const data = await entries.find({
+        date: {"$gte": new Date("2022-07-17")}
+      }).toArray()
+      .then((ans)=> {
+        res.status(200).json({ ans });
+      })
+      
+      }catch(error: any){
+        console.log(error)
+        res.status(500).json(error)
+      }
+
   }
 }
