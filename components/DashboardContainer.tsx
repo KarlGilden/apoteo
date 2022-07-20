@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 const DashboardContainer = () => {
 
-    const [data, setData] = useState()
+    const [data, setData] = useState<any>([])
 
     useEffect(()=>{
         getData()
@@ -15,13 +15,17 @@ const DashboardContainer = () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            setData(data.ans)
         })  
     }
 
   return (
     <div className='bg-primary-light p-10'>
-        {data}
+        {data?.map((value:any)=>{
+            return(
+                <p>{value?.date}</p>
+            )
+        })}
     </div>
   )
 }

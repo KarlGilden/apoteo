@@ -37,13 +37,28 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
 
   if (req.method === 'GET') {
     try{
+
+      // set start of current month
+      var monthStart = new Date();
+      monthStart.setDate(1)
+
+      // set end of current month
+      var monthEnd = new Date();
+      monthEnd.setMonth(monthEnd.getMonth()+1)
+      monthEnd.setDate(0)
+
       const entries = db.collection("Entries")
       const data = await entries.find({
-        date: {"$gte": new Date("2022-07-17")}
+        date: {
+          "$gte": monthStart,
+          "$lte": monthEnd
+        }
       }).toArray()
       .then((ans)=> {
         res.status(200).json({ ans });
       })
+
+      
       
       }catch(error: any){
         console.log(error)
