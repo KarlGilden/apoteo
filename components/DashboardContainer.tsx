@@ -15,17 +15,19 @@ const DashboardContainer = () => {
         })
         .then(response => response.json())
         .then(data => {
-            setData(data.ans)
+            console.log(data)
+            setData(data)
         })  
     }
 
   return (
     <div className='bg-primary-light p-10'>
-        {data?.map((value:any)=>{
+        {/* {data?.map((value:any)=>{
             return(
                 <p>{value?.date}</p>
             )
-        })}
+        })} */}
+        {data}
     </div>
   )
 }

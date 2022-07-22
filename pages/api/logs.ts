@@ -35,6 +35,7 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
 
   }
 
+  // get sum of scripts between two dates
   if (req.method === 'GET') {
     try{
 
@@ -55,7 +56,13 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
         }
       }).toArray()
       .then((ans)=> {
-        res.status(200).json({ ans });
+        console.log(ans)
+        let sum = 0;
+        for(let i=0;i<ans.length;i++){
+          sum += ans[i].sum
+          console.log(ans)
+        }
+        res.status(200).json(sum);
       })
 
       
