@@ -7,29 +7,11 @@ import Router from "next/router";
 const NewLog = () => {
 
     const [showModal, setShowModal] = useState(false);
-    const [data, setData] = useState({
+    const [logObj, setLogObj] = useState({
         date: new Date().toLocaleDateString('en-CA'),
-        covid: 0,
-        discharge: 0,
-        outp: 0,
-        gp: 0,
-        ed: 0,
-        paediatric: 0,
-        eylea: 0,
-        bicillin: 0,
-        ferinject: 0,
-        binocrit: 0,
-        blisterPacks: 0,
-        aclasta: 0,
-        compounding: 0,
-        yellowCards: 0,
+        data: {},
         issues: [
-            {
-                id: 0,
-                title: "",
-                description: "",
-                tags: ""
-            }
+            {}
         ]
     })
 
@@ -48,6 +30,23 @@ const NewLog = () => {
         }
     ])
 
+    const [data, setData] = useState({
+        covid: 0,
+        discharge: 0,
+        outp: 0,
+        gp: 0,
+        ed: 0,
+        paediatric: 0,
+        eylea: 0,
+        bicillin: 0,
+        ferinject: 0,
+        binocrit: 0,
+        blisterPacks: 0,
+        aclasta: 0,
+        compounding: 0,
+        yellowCards: 0
+    })
+
     const openModal = () => {
         setShowModal(true)
         document.querySelector('body')?.classList.add('overflow-hidden')
@@ -58,20 +57,21 @@ const NewLog = () => {
         document.querySelector('body')?.classList.remove('overflow-hidden')
     }
 
-    const onValueChange = (key:string, value:string) => {
+    const onValueChange = (key:string, value:number) => {
         setData({ ...data, [key]: value })
     }
 
     const handleSubmit = async () => {
-        data.issues = issues
+        logObj.issues = issues
+        logObj.data = data
+
         await fetch('/api/logs', {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
+            body: JSON.stringify(logObj)
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             Router.push("/dashboard");
         })
     }
@@ -83,10 +83,10 @@ const NewLog = () => {
     <div className='h-screen bg-primary'>
         <div className='px-10 pt-10'>
             <input 
-            value={data.date} 
+            value={logObj.date} 
             className='bg-transparent text-white text-xl' 
             type="date"
-            onChange={(e)=>onValueChange("date", e.target.value)}
+            onChange={(e)=>setLogObj({ ...logObj, date: e.target.value })}
 
             />
         </div>

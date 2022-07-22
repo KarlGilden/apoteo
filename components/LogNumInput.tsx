@@ -3,7 +3,7 @@ import React from 'react'
 interface IProps{
     name:string,
     inputKey: string,
-    onValueChange: (key:string, value:string) => void,
+    onValueChange: (key:string, value:number) => void,
     value:number
 
 }
@@ -16,7 +16,7 @@ const LogNumInput = ({name, inputKey, onValueChange, value}:IProps) => {
         type="number"
         value={value}
         onChange={(e)=>{
-          onValueChange(inputKey, e.target.value)
+          onValueChange(inputKey, parseInt(e.target.value))
         }}
         />
     </div>

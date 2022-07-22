@@ -22,11 +22,6 @@ const DashboardContainer = () => {
 
   return (
     <div className='bg-primary-light p-10'>
-        {/* {data?.map((value:any)=>{
-            return(
-                <p>{value?.date}</p>
-            )
-        })} */}
         {data}
     </div>
   )
