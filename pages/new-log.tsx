@@ -37,6 +37,7 @@ const NewLog = () => {
             yellowCards: 0,
             blisterPacks: 0,
             paediatric: 0,
+            other: 0,
             sum: 0
         },
         outp: {
@@ -49,6 +50,7 @@ const NewLog = () => {
             yellowCards: 0,
             blisterPacks: 0,
             paediatric: 0,
+            other: 0,
             sum: 0
         },
         gp: {
@@ -56,6 +58,7 @@ const NewLog = () => {
             yellowCards: 0,
             blisterPacks: 0,
             paediatric: 0,
+            other: 0,
             sum: 0
         },
         ed: {
@@ -63,6 +66,7 @@ const NewLog = () => {
             yellowCards: 0,
             blisterPacks: 0,
             paediatric: 0,
+            other: 0,
             sum: 0
         }
     })
@@ -161,7 +165,11 @@ const NewLog = () => {
                             <div className='flex justify-between w-full sm:w-full'>
                                 <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
                                 <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, paediatric: parseInt(e.target.value)}})}}/>
-                            </div>                        
+                            </div> 
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Other:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, other: parseInt(e.target.value)}})}}/>
+                            </div>                       
                         </div>
 
                         <div className='p-3'></div>
@@ -191,6 +199,11 @@ const NewLog = () => {
                             </div>  
                             <div className='p-1'></div>
                             <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Other:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, other: parseInt(e.target.value)}})}}/>
+                            </div>      
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
                                 <label className='text-sm text-white' htmlFor="">Aclasta:</label>
                                 <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, aclasta: parseInt(e.target.value)}})}}/>
                             </div>  
@@ -213,13 +226,7 @@ const NewLog = () => {
                             <div className='flex justify-between w-full sm:w-full'>
                                 <label className='text-sm text-white' htmlFor="">Ferinject:</label>
                                 <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, ferinject: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm text-white' htmlFor="">Aclasta:</label>
-                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, aclasta: parseInt(e.target.value)}})}}/>
-                            </div>  
-
+                            </div>   
                         </div>
 
                         <div className='p-3'></div>
@@ -248,7 +255,11 @@ const NewLog = () => {
                                 <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
                                 <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, paediatric: parseInt(e.target.value)}})}}/>
                             </div>  
-
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Other:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, other: parseInt(e.target.value)}})}}/>
+                            </div>  
                          </div>
 
                         <div className='p-3'></div>
@@ -275,6 +286,11 @@ const NewLog = () => {
                             <div className='flex justify-between w-full sm:w-full'>
                                 <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
                                 <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, paediatric: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Other:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, other: parseInt(e.target.value)}})}}/>
                             </div>  
                         </div>
                     </div>
