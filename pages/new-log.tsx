@@ -12,7 +12,8 @@ const NewLog = () => {
         data: {},
         issues: [
             {}
-        ]
+        ],
+        sum:0
     })
 
     const [issues, setIssues] = useState([
@@ -31,20 +32,39 @@ const NewLog = () => {
     ])
 
     const [data, setData] = useState({
-        covid: 0,
-        discharge: 0,
-        outp: 0,
-        gp: 0,
-        ed: 0,
-        paediatric: 0,
-        eylea: 0,
-        bicillin: 0,
-        ferinject: 0,
-        binocrit: 0,
-        blisterPacks: 0,
-        aclasta: 0,
-        compounding: 0,
-        yellowCards: 0
+        discharge: {
+            compounding: 0,
+            yellowCards: 0,
+            blisterPacks: 0,
+            paediatric: 0,
+            sum: 0
+        },
+        outp: {
+            eylea: 0,
+            bicillin: 0,
+            ferinject: 0,
+            binocrit: 0,
+            aclasta: 0,
+            compounding: 0,
+            yellowCards: 0,
+            blisterPacks: 0,
+            paediatric: 0,
+            sum: 0
+        },
+        gp: {
+            compounding: 0,
+            yellowCards: 0,
+            blisterPacks: 0,
+            paediatric: 0,
+            sum: 0
+        },
+        ed: {
+            compounding: 0,
+            yellowCards: 0,
+            blisterPacks: 0,
+            paediatric: 0,
+            sum: 0
+        }
     })
 
     const openModal = () => {
@@ -57,15 +77,39 @@ const NewLog = () => {
         document.querySelector('body')?.classList.remove('overflow-hidden')
     }
 
-    const onValueChange = (key:string, value:number) => {
-        setData({ ...data, [key]: value })
+    const sum = (obj:any) => {
+        var sum = 0;
+        for( var el in obj ) {
+            if( obj.hasOwnProperty( el ) ) {
+              sum += parseFloat( obj[el] );
+            }
+          }
+          return sum;
+    }
+
+    const sumAll = (obj:any) => {
+        var sum = 0;
+        for( var el in obj ) {
+            if( obj.hasOwnProperty( el ) ) {
+              sum += parseFloat( obj[el].sum );
+            }
+          }
+          return sum;
     }
 
     const handleSubmit = async () => {
-        logObj.issues = issues
+        data.discharge.sum = sum(data.discharge);
+        data.outp.sum = sum(data.outp);
+        data.gp.sum = sum(data.gp);
+        data.ed.sum = sum(data.ed);
+
         logObj.data = data
 
-        await fetch('/api/logs', {
+        logObj.sum = sumAll(data)
+
+        logObj.issues = issues
+        console.log(logObj)
+        await fetch('/api/logs/add', {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(logObj)
@@ -78,10 +122,11 @@ const NewLog = () => {
 
   return (
     <>
-    <div className={`h-[72px] w-full bg-secondary `}></div>
+    <div className={`h-[72px] w-full  `}></div>
     <IssueModal issues={issues} setIssues={setIssues} show={showModal} handleClose={()=>closeModal()}/>
-    <div className='h-screen bg-primary'>
-        <div className='px-10 pt-10'>
+    <div className='bg-primary'>
+        <div className='w-full max-w-[600px] m-auto bg-primary p-10 flex flex-col justify-between'>
+        <div>
             <input 
             value={logObj.date} 
             className='bg-transparent text-white text-xl' 
@@ -90,45 +135,148 @@ const NewLog = () => {
 
             />
         </div>
-        <div className='w-full bg-primary p-10 flex flex-col justify-between'>
-            <div className='flex flex-col sm:flex-row h-full'>
+        <div className='p-3'></div>
+            <div className='flex flex-col h-full'>
                 <div className='flex flex-col sm:flex-row w-full items-center mb-10 sm:items-start'>
-                    <div className='w-full sm:pr-3'>
-                        <p className='text-white'>Category 1</p>
-                        <hr className='text-white mb-1' />
-                        <LogNumInput value={data.discharge} name="Discharge" inputKey="discharge" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.outp} name="Out Patient" inputKey="outp" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.gp} name="GP" inputKey="gp" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.ed} name="ED" inputKey="ed" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <p className='text-white'>Category 2</p>
-                        <hr className='text-white mb-1' />
-                        <LogNumInput value={data.paediatric} name="Paediatric" inputKey="paediatric" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.eylea} name="Eylea" inputKey="eylea" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.bicillin} name="Bicillin" inputKey="bicillin" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.ferinject} name="Ferinject" inputKey="ferinject" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.binocrit} name="Binocrit" inputKey="binocrit" onValueChange={onValueChange}/>
-                    </div>
-                    <div className='p-1'></div>
-                    <div className='w-full sm:pr-3'>
-                        <p className='text-white'>Category 3</p>
-                        <hr className='text-white mb-1' />
-                        <LogNumInput value={data.blisterPacks} name="Blister Packs" inputKey="blisterPacks" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.aclasta} name="Aclasta" inputKey="aclasta" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.covid} name="Covid" inputKey="covid" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.compounding} name="Compounding" inputKey="compounding" onValueChange={onValueChange}/>
-                        <div className='p-1'></div>
-                        <LogNumInput value={data.yellowCards} name="Yellow Cards" inputKey="yellowCards" onValueChange={onValueChange}/>
+                    <div className='w-full'>
+
+                        <div>
+                            <p className='text-white'>Discharge</p>
+                            <hr className='text-white mb-1' />
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Blister Packs:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, blisterPacks: parseInt(e.target.value)}})}}/>
+                            </div>
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Yellow Cards:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, yellowCards: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Compounding:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, compounding: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, paediatric: parseInt(e.target.value)}})}}/>
+                            </div>                        
+                        </div>
+
+                        <div className='p-3'></div>
+
+                        <div>
+                            <p className='text-white'>Out Patient</p>
+                            <hr className='text-white mb-1' />
+
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Blister Packs:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, blisterPacks: parseInt(e.target.value)}})}}/>
+                            </div>
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Yellow Cards:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, yellowCards: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Compounding:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, compounding: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, paediatric: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Aclasta:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, aclasta: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Bicillin:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, bicillin: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Binocrit:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, binocrit: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Eylea:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, eylea: parseInt(e.target.value)}})}}/>
+                            </div> 
+                            <div className='p-1'></div> 
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Ferinject:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, ferinject: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Aclasta:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, aclasta: parseInt(e.target.value)}})}}/>
+                            </div>  
+
+                        </div>
+
+                        <div className='p-3'></div>
+
+                        <div>
+
+                            <p className='text-white'>GP</p>
+                            <hr className='text-white mb-1' />
+
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Blister Packs:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, blisterPacks: parseInt(e.target.value)}})}}/>
+                            </div>
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Yellow Cards:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, yellowCards: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Compounding:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, compounding: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, paediatric: parseInt(e.target.value)}})}}/>
+                            </div>  
+
+                         </div>
+
+                        <div className='p-3'></div>
+
+                        <div>
+                            <p className='text-white'>ED</p>
+                            <hr className='text-white mb-1' />
+
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Blister Packs:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, blisterPacks: parseInt(e.target.value)}})}}/>
+                            </div>
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Yellow Cards:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, yellowCards: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Compounding:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, compounding: parseInt(e.target.value)}})}}/>
+                            </div>  
+                            <div className='p-1'></div>
+                            <div className='flex justify-between w-full sm:w-full'>
+                                <label className='text-sm text-white' htmlFor="">Paediatrics:</label>
+                                <input type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, paediatric: parseInt(e.target.value)}})}}/>
+                            </div>  
+                        </div>
                     </div>
                 </div>
                 <div className='p-1'></div>
@@ -152,8 +300,8 @@ const NewLog = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full flex justify-center mt-10'>
-                <button onClick={()=>{handleSubmit()}} className='p-3 bg-secondary w-full sm:w-[50%]'>Submit</button>
+            <div className='w-full mt-10'>
+                <button onClick={()=>{handleSubmit()}} className='p-3 bg-secondary w-full '>Submit</button>
             </div>
         </div>
     </div>
