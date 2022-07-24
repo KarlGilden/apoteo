@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from "../../../util/db";
-import ISODate from 'mongodb'
 
 export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { db } = await connectToDatabase();
