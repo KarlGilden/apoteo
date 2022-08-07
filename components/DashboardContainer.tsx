@@ -15,7 +15,7 @@ const DashboardContainer = () => {
     getData()
   }, [])
   const getData = async () => {
-    await fetch('http://localhost:3000/api/logs/sum', {
+    await fetch('/api/logs/sum', {
       method: 'GET',
       headers: {"Content-Type": "application/json"}
     }).then(response => response.json())
