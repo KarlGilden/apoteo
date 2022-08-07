@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react"
 import { GetServerSideProps, InferGetStaticPropsType, NextPage } from 'next'
-import DashboardContainer from '../components/DashboardContainer'
+import DashboardContainer from '../components/Dashboard/DashboardContainer'
 import { LogData } from '../types/Log'
 
 const Dashboard: NextPage  = ()=> {
