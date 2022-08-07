@@ -50,17 +50,53 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
             const entries = db.collection("Entries")
             const data = await entries.find({
               date: {
-                "$gte": monthStart,
+                "$gte": new Date("1/1/2022"),
                 "$lte": monthEnd
               }
             }).toArray()
             .then((ans)=> {
-              let sum = 0;
+
+              // sum of all scripts
+              let sumAll = 0;
               for(let i=0;i<ans.length;i++){
-                sum += ans[i].sum
+                sumAll += ans[i].sum
               }
-              console.log(sum)
-              res.status(200).json(sum);
+
+              // sum of all discharge
+              let sumDischarge = 0;
+              for(let i=0;i<ans.length;i++){
+                sumDischarge += ans[i].data.discharge.sum
+                console.log(ans[i].data.discharge.sum)
+              }
+
+              // sum of all outpatient
+              let sumOutp= 0;
+              for(let i=0;i<ans.length;i++){
+                sumOutp += ans[i].data.outp.sum
+              }
+
+              // sum of all gp
+              let sumGp= 0;
+              for(let i=0;i<ans.length;i++){
+                sumGp += ans[i].data.gp.sum
+              }
+
+              // sum of all ed
+              let sumEd= 0;
+              for(let i=0;i<ans.length;i++){
+                sumEd += ans[i].data.ed.sum
+              }
+
+              console.log(sumAll, sumDischarge, sumEd, sumGp, sumOutp)
+
+              const response = {
+                sumAll: sumAll,
+                sumDischarge: sumDischarge,
+                sumEd: sumEd,
+                sumGp: sumGp,
+                sumOutp: sumOutp
+              }
+              res.status(200).json(response);
             })
       
             }catch(error: any){
