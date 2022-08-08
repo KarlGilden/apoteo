@@ -104,5 +104,43 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               res.status(500).json(error)
             }
         }
+
+        if(slug == 'sumInterventions'){
+          try{
+              // set start of current month
+              var monthStart = new Date();
+              monthStart.setDate(1)
+        
+              // set end of current month
+              var monthEnd = new Date();
+              monthEnd.setMonth(monthEnd.getMonth()+1)
+              monthEnd.setDate(0)
+        
+              const entries = db.collection("Entries")
+              const data = await entries.find({
+                date: {
+                  "$gte": new Date("1/1/2022"),
+                  "$lte": monthEnd
+                }
+              }).toArray()
+              .then((ans)=> {
+                
+                let sum = 0;
+                for(let i=0;i<ans.length;i++){
+                  sum += ans[i].issues.length
+                }
+
+                console.log(sum)
+
+                res.status(200).json(sum);
+              })
+        
+              }catch(error: any){
+                console.log(error)
+                res.status(500).json(error)
+              }
+          }
+
+        
   }
 }

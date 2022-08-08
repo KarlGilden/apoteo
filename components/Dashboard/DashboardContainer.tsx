@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-
-
 const DashboardContainer = () => {
   const [data, setData] = useState({
     sumAll: 0,
