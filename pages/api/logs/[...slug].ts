@@ -98,7 +98,7 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
 
         if(slug && slug[0] == 'sumInterventions'){
           try{
-              // // set start of current month
+              // set start of current month
               // var monthStart = new Date();
               // monthStart.setDate(1)
         
