@@ -6,13 +6,12 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { slug } = req.query
 
   if (Array.isArray(slug)) {
-    slug = slug.join('/');
     console.log(slug)
   }
 
   if (req.method === 'PUT') {
 
-    if(slug == "add"){
+    if(slug && slug[0] == "add"){
         try{
             console.log(req.body)
             const entries = db.collection("Entries");
@@ -37,22 +36,16 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
   // get sum of scripts between two dates
   if (req.method === 'GET') {
 
-    if(slug == 'sum'){
+    if(slug && slug[0] == 'sum'){
         try{
-            // set start of current month
-            var monthStart = new Date();
-            monthStart.setDate(1)
-      
-            // set end of current month
-            var monthEnd = new Date();
-            monthEnd.setMonth(monthEnd.getMonth()+1)
-            monthEnd.setDate(0)
-      
+            // get entries from mongodb
             const entries = db.collection("Entries")
+
+            // get data by date
             const data = await entries.find({
               date: {
-                "$gte": new Date("1/1/2022"),
-                "$lte": monthEnd
+                "$gte": new Date(slug[1]),
+                "$lte": new Date(slug[2])
               }
             }).toArray()
             .then((ans)=> {
@@ -67,7 +60,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               let sumDischarge = 0;
               for(let i=0;i<ans.length;i++){
                 sumDischarge += ans[i].data.discharge.sum
-                console.log(ans[i].data.discharge.sum)
               }
 
               // sum of all outpatient
@@ -88,8 +80,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                 sumEd += ans[i].data.ed.sum
               }
 
-              console.log(sumAll, sumDischarge, sumEd, sumGp, sumOutp)
-
               const response = {
                 sumAll: sumAll,
                 sumDischarge: sumDischarge,
@@ -106,22 +96,22 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
             }
         }
 
-        if(slug == 'sumInterventions'){
+        if(slug && slug[0] == 'sumInterventions'){
           try{
-              // set start of current month
-              var monthStart = new Date();
-              monthStart.setDate(1)
+              // // set start of current month
+              // var monthStart = new Date();
+              // monthStart.setDate(1)
         
-              // set end of current month
-              var monthEnd = new Date();
-              monthEnd.setMonth(monthEnd.getMonth()+1)
-              monthEnd.setDate(0)
+              // // set end of current month
+              // var monthEnd = new Date();
+              // monthEnd.setMonth(monthEnd.getMonth()+1)
+              // monthEnd.setDate(0)
         
               const entries = db.collection("Entries")
               const data = await entries.find({
                 date: {
-                  "$gte": new Date("1/1/2022"),
-                  "$lte": monthEnd
+                  "$gte": new Date(slug[1]),
+                  "$lte": new Date(slug[2])
                 }
               }).toArray()
               .then((ans)=> {
@@ -130,9 +120,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                 for(let i=0;i<ans.length;i++){
                   sum += ans[i].issues.length
                 }
-
-                console.log(sum)
-
                 res.status(200).json(sum);
               })
         
@@ -142,22 +129,13 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               }
           }
 
-        if(slug == 'allInterventions'){
-          try{
-              // set start of current month
-              var monthStart = new Date();
-              monthStart.setDate(1)
-        
-              // set end of current month
-              var monthEnd = new Date();
-              monthEnd.setMonth(monthEnd.getMonth()+1)
-              monthEnd.setDate(0)
-        
+        if(slug && slug[0] == 'allInterventions'){
+          try{        
               const entries = db.collection("Entries")
               const data = await entries.find({
                 date: {
-                  "$gte": new Date("1/1/2022"),
-                  "$lte": monthEnd
+                  "$gte": new Date(slug[1]),
+                  "$lte": new Date(slug[2])
                 }
               }).toArray()
               .then((ans)=> {
