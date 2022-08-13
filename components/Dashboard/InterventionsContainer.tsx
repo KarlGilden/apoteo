@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import InterventionItem from './InterventionItem'
+import InterventionModal from './InterventionModal';
 import TagSelector from './TagSelector'
 
 const InterventionsContainer = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedIntervention, setSelectedIntervention] = useState({
+      id: 0,
+      title: "",
+      description: "",
+      tags: ""
+    })
     const [interventionsSum, setInterventionsSum] = useState(0)
     const [interventions, setInterventions] = useState([{
       id: 0,
@@ -39,8 +47,19 @@ const InterventionsContainer = () => {
           })
       }
 
+    const openModal = () => {
+      setShowModal(true)
+      document.querySelector('body')?.classList.add('overflow-hidden')
+    }
+  
+    const closeModal = () => {
+        setShowModal(false)
+        document.querySelector('body')?.classList.remove('overflow-hidden')
+    }
+
   return (
     <div className='bg-primary-light p-10 w-[50%]'>
+        <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <h2 className='text-3xl text-white'>Interventions</h2>
             <p className='text-white'>Total interventions: {interventionsSum}</p>
@@ -69,7 +88,7 @@ const InterventionsContainer = () => {
               return tags.includes(selectedTag)
               })?.map((value:any)=>{
                 return (
-                  <InterventionItem intervention={value}/>
+                    <InterventionItem openModal={setShowModal} setIntervention={setSelectedIntervention} intervention={value}/>
                 )
             })}       
         </div>
