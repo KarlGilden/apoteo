@@ -6,7 +6,8 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { slug } = req.query
 
   if (Array.isArray(slug)) {
-    slug = slug.join('');
+    slug = slug.join('/');
+    console.log(slug)
   }
 
   if (req.method === 'PUT') {
@@ -141,6 +142,37 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               }
           }
 
+        if(slug == 'allInterventions'){
+          try{
+              // set start of current month
+              var monthStart = new Date();
+              monthStart.setDate(1)
         
+              // set end of current month
+              var monthEnd = new Date();
+              monthEnd.setMonth(monthEnd.getMonth()+1)
+              monthEnd.setDate(0)
+        
+              const entries = db.collection("Entries")
+              const data = await entries.find({
+                date: {
+                  "$gte": new Date("1/1/2022"),
+                  "$lte": monthEnd
+                }
+              }).toArray()
+              .then((ans)=> {
+                
+                let interventions: Object[] = [];
+                for(let i=0;i<ans.length;i++){
+                    interventions = [...interventions, ...ans[i].issues]
+                }
+                res.status(200).json(interventions);
+              })
+        
+              }catch(error: any){
+                console.log(error)
+                res.status(500).json(error)
+              }
+          }
   }
 }
