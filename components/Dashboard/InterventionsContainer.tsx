@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import DatesChanger from './DatesChanger';
 import InterventionItem from './InterventionItem'
 import InterventionModal from './InterventionModal';
 import TagSelector from './TagSelector'
 
 const InterventionsContainer = () => {
     const [showModal, setShowModal] = useState(false);
+    const [dateFrom, setDateFrom] = useState("2022-05-01")
+    const [dateTo, setDateTo] = useState("2022-05-30")
+
     const [selectedIntervention, setSelectedIntervention] = useState({
       id: 0,
       title: "",
       description: "",
       tags: ""
     })
+
     const [interventionsSum, setInterventionsSum] = useState(0)
+
     const [interventions, setInterventions] = useState([{
       id: 0,
       title: "",
@@ -23,10 +29,10 @@ const InterventionsContainer = () => {
     useEffect(()=>{
         getSum();
         getInterventions();
-      }, [])
+      }, [dateFrom, dateTo])
 
       const getSum = async () => {
-        await fetch('/api/logs/sumInterventions', {
+        await fetch('/api/logs/sumInterventions/' + `${dateFrom}/${dateTo}`, {
           method: 'GET',
           headers: {"Content-Type": "application/json"}
         }).then(response => response.json())
@@ -37,7 +43,7 @@ const InterventionsContainer = () => {
       }
 
       const getInterventions = async () => {
-        await fetch('/api/logs/allInterventions', {
+        await fetch('/api/logs/allInterventions/' + `${dateFrom}/${dateTo}`, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
           }).then(response => response.json())
@@ -61,6 +67,8 @@ const InterventionsContainer = () => {
     <div className='bg-primary-light p-10 w-[50%]'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
+            <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
+            <div className='p-2'></div>
             <h2 className='text-3xl text-white'>Interventions</h2>
             <p className='text-white'>Total interventions: {interventionsSum}</p>
             <div className='py-3 flex flex-wrap'>

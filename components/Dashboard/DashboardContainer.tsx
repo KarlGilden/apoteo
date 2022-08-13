@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import DatesChanger from './DatesChanger';
 
 const DashboardContainer = () => {
+  const [dateFrom, setDateFrom] = useState("2022-05-01")
+  const [dateTo, setDateTo] = useState("2022-05-30")
+
   const [data, setData] = useState({
     sumAll: 0,
     sumDischarge: 0,
@@ -11,9 +15,10 @@ const DashboardContainer = () => {
 
   useEffect(()=>{
     getData()
-  }, [])
+  }, [dateFrom, dateTo])
+
   const getData = async () => {
-    await fetch('/api/logs/sum', {
+    await fetch('/api/logs/sum/' + `${dateFrom}/${dateTo}`, {
       method: 'GET',
       headers: {"Content-Type": "application/json"}
     }).then(response => response.json())
@@ -25,6 +30,8 @@ const DashboardContainer = () => {
 
   return (
     <div className='bg-primary-light p-10'>
+        <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
+        <div className='p-2'></div>
         <h2 className='text-3xl text-white'>Total scripts: {data?.sumAll}</h2>
         <div className='flex justify-between w-[50%] mt-6'>
           <h3 className='text-1xl text-white'>Discharge: {data?.sumDischarge}</h3>
