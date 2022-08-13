@@ -64,7 +64,7 @@ const InterventionsContainer = () => {
     }
 
   return (
-    <div className='bg-primary-light p-10 w-[50%]'>
+    <div className='bg-primary-light p-10'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
@@ -94,9 +94,9 @@ const InterventionsContainer = () => {
               }
               const tags = value.tags.split(",");
               return tags.includes(selectedTag)
-              })?.map((value:any)=>{
+              })?.map((value:any, index:number)=>{
                 return (
-                    <InterventionItem openModal={setShowModal} setIntervention={setSelectedIntervention} intervention={value}/>
+                    <InterventionItem key={index} openModal={setShowModal} setIntervention={setSelectedIntervention} intervention={value}/>
                 )
             })}       
         </div>
