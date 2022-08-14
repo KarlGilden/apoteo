@@ -29,15 +29,15 @@ const DashboardContainer = () => {
   }
 
   return (
-    <div className='bg-primary-light p-10'>
+    <div className='bg-primary-light p-5'>
         <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
         <div className='p-2'></div>
         <h2 className='text-3xl text-white'>Total scripts: {data?.sumAll}</h2>
-        <div className='flex justify-between mt-6'>
-          <h3 className='text-1xl text-white'>Discharge: {data?.sumDischarge}</h3>
-          <h3 className='text-1xl text-white'>Out Patient: {data?.sumOutp}</h3>
-          <h3 className='text-1xl text-white'>GP: {data?.sumGp}</h3>
-          <h3 className='text-1xl text-white'>ED: {data?.sumEd}</h3>
+        <div className='flex flex-wrap justify-between mt-6'>
+          <h3 className='text-xs sm:text-base text-white'>Discharge: {data?.sumDischarge}</h3>
+          <h3 className='text-xs sm:text-base text-white'>Out Patient: {data?.sumOutp}</h3>
+          <h3 className='text-xs sm:text-base text-white'>GP: {data?.sumGp}</h3>
+          <h3 className='text-xs sm:text-base text-white'>ED: {data?.sumEd}</h3>
         </div>
     </div>
   )

@@ -64,7 +64,7 @@ const InterventionsContainer = () => {
     }
 
   return (
-    <div className='bg-primary-light p-10'>
+    <div className='bg-primary-light p-5'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>

@@ -5,10 +5,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { db } = await connectToDatabase();
   let { slug } = req.query
 
-  if (Array.isArray(slug)) {
-    console.log(slug)
-  }
-
   if (req.method === 'PUT') {
 
     if(slug && slug[0] == "add"){

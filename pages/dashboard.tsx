@@ -9,8 +9,8 @@ const Dashboard: NextPage  = ()=> {
 
     return(        
         <>
-        <div className={`h-[72px] w-full bg-secondary `}></div>
-        <div className=' bg-primary p-10 grid grid-cols-2 gap-3 auto-rows-min'>
+        <div className={`h-[72px] w-full bg-secondary`}></div>
+        <div className=' bg-primary p-5 grid grid-cols-1 gap-3 auto-rows-min md:grid-cols-2'>
             <DashboardContainer/>
             <InterventionsContainer/>
         </div>
