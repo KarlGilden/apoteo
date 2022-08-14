@@ -3,6 +3,7 @@ import IssueItem from '../components/IssueItem';
 import IssueModal from '../components/IssueModal'
 import LogNumInput from '../components/LogNumInput'
 import Router from "next/router";
+import { Issue } from '../types/Log';
 
 const NewLog = () => {
 
@@ -16,19 +17,8 @@ const NewLog = () => {
         sum:0
     })
 
-    const [issues, setIssues] = useState([
-        {
-            id:1,
-            title: "Example 1",
-            description: "blah blah blah",
-            tags: "tag1,tag2,tag3"
-        },
-        {
-            id:2,
-            title: "Example 2",
-            description: "blah blha blah",
-            tags: "a,b,b"
-        }
+    const [issues, setIssues] = useState<Issue[]>([
+
     ])
 
     const [data, setData] = useState({
@@ -303,9 +293,9 @@ const NewLog = () => {
                             <h2 className=''>Issues</h2>
                         </div>
 
-                        {issues.map(value=>{
+                        {issues.length > 0 && issues.map((value, index)=>{
                             return(
-                                <IssueItem key={value.id} value={value}/>
+                                <IssueItem key={index} value={value}/>
                             )
                         })}
 

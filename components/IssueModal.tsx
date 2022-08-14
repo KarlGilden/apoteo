@@ -41,7 +41,8 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
         description: issueDesc,
         tags: issueTags.join()
       }
-  
+
+      setIssueTags([""])
       setIssues([...issues, newIssue])
       handleClose()
     }
@@ -71,10 +72,13 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
         <FormInput setFormState={setIssueTitle} type={'text'} label={'Title'} />
         <FormInput setFormState={setIssueDesc} type={'text'} label={'Description'} />
 
-        <div className='flex m-5'>
-          <p className={`${issueTags.includes('Tag1') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Tag1')}>Tag1</p>
-          <p className={`${issueTags.includes('Tag2') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Tag2')}>Tag2</p>
-          <p className={`${issueTags.includes('Tag3') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Tag3')}>Tag3</p>
+        <div className='flex flex-wrap m-5'>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved serious harm') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved serious harm')}>Improved serious harm</p>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved harm') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved harm')}>Improved harm</p>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved efficacy') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved efficacy')}>Improved efficacy</p>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved compliance') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved compliance')}>Improved compliance</p>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Incomplete / illegible') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Incomplete / illegible')}>Incomplete / illegible</p>
+          <p className={`p-1 cursor-pointer ${issueTags.includes('Error') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Error')}>Error</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>
