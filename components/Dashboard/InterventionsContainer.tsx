@@ -68,14 +68,21 @@ const InterventionsContainer = () => {
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
+            
             <div className='p-2'></div>
+            
             <h2 className='text-3xl text-white'>Interventions</h2>
             <p className='text-white'>Total interventions: {interventionsSum}</p>
+
             <div className='py-3 flex flex-wrap'>
               <TagSelector label={"All"} tag={""} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
-              <TagSelector label={"Example 1"} tag={"tag1"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
-              <TagSelector label={"Example 2"} tag={"b"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Improved Serious Harm"} tag={"Improved serious harm"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Improved Harm"} tag={"Improved harm"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Improved Efficacy"} tag={"Improved efficacy"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Improved Compliance"} tag={"Improved compliance"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Incomplete / illegible"} tag={"Incomplete / illegible"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
             </div>
+
             <p className='text-white'>Selected interventions: {interventions?.filter((value)=>{
               if(selectedTag == ""){
                 return value.tags.includes(selectedTag)
@@ -87,7 +94,8 @@ const InterventionsContainer = () => {
               return tags.includes(selectedTag)
               }).length}</p>
         </div>
-        <div className='max-h-[150px] overflow-y-scroll'>
+
+        <div className='h-[150px] overflow-y-scroll'>
             {interventions?.filter((value)=>{
               if(selectedTag == ""){
                 return value.tags.includes(selectedTag)
@@ -100,6 +108,7 @@ const InterventionsContainer = () => {
                 )
             })}       
         </div>
+
     </div>
   )
 }
