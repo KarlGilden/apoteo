@@ -62,23 +62,25 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
 
   const modal = show ? (
     <div className={`overflow-hidden fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50  flex justify-center items-center`}>
-      <div className='w-[90%] h-[90%] bg-primary p-5 rounded-md'>
+      <div className='max-w-[600px] w-[90%] h-[90%] bg-primary p-5 rounded-md flex flex-col justify-between'>
 
         <div className='flex justify-between items-center'>
           <h1 className='text-white text-4xl'>New Issue</h1>
           <p className='text-2xl' onClick={()=>closeModal()}>close</p>
         </div>
 
-        <FormInput setFormState={setIssueTitle} type={'text'} label={'Title'} />
-        <FormInput setFormState={setIssueDesc} type={'text'} label={'Description'} />
+        <div>
+          <FormInput setFormState={setIssueTitle} type={'text'} label={'Title'} />
+          <FormInput setFormState={setIssueDesc} type={'text'} label={'Description'} />
+        </div>
 
         <div className='flex flex-wrap m-5'>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved serious harm') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved serious harm')}>Improved serious harm</p>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved harm') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved harm')}>Improved harm</p>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved efficacy') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved efficacy')}>Improved efficacy</p>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Improved compliance') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Improved compliance')}>Improved compliance</p>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Incomplete / illegible') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Incomplete / illegible')}>Incomplete / illegible</p>
-          <p className={`p-1 cursor-pointer ${issueTags.includes('Error') ? 'text-secondary' : 'text-white'}`} onClick={()=>toggleTags('Error')}>Error</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved serious harm') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved serious harm')}>Improved serious harm</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved harm') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved harm')}>Improved harm</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved efficacy') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved efficacy')}>Improved efficacy</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved compliance') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved compliance')}>Improved compliance</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Incomplete / illegible') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Incomplete / illegible')}>Incomplete / illegible</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Error') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Error')}>Error</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>
