@@ -4,7 +4,7 @@ const HeaderContainer = () => {
   return (
     <div className='p-5 flex flex-col justify-between'>
     <div className='text-center sm:text-left sm:pl-[10px]'>
-      <h1 className='text-6xl font-bold text-secondary  mb-2'>WHOP Stats</h1>
+      <h1 className='text-6xl font-bold text-secondary  mb-2'>Apoteo</h1>
       <h3 className='text-3xl text-white'>The dynamic solution to pharmacy management</h3>
     </div>
 

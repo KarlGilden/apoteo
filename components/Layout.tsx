@@ -10,7 +10,7 @@ const Layout = ({children}:IProps) => {
   return (
     <div>
     <Head>
-      <title>WHOPs</title>
+      <title>Apoteo</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
       <Navbar/>
