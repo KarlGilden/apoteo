@@ -4,6 +4,7 @@ import { GetServerSideProps, InferGetStaticPropsType, NextPage } from 'next'
 import DashboardContainer from '../components/Dashboard/DashboardContainer'
 import { LogData } from '../types/Log'
 import InterventionsContainer from '../components/Dashboard/InterventionsContainer'
+import ErrorContainer from '../components/Dashboard/ErrorContainer'
 
 const Dashboard: NextPage  = ()=> {
 
@@ -13,6 +14,7 @@ const Dashboard: NextPage  = ()=> {
         <div className=' bg-primary p-5 grid grid-cols-1 gap-3 auto-rows-min md:grid-cols-2'>
             <DashboardContainer/>
             <InterventionsContainer/>
+            <ErrorContainer/>
         </div>
         </>
     )

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from "../../../util/db";
-
+import {Issue} from '../../../types/Log'
 export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { db } = await connectToDatabase();
   let { slug } = req.query
@@ -25,9 +25,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
           }
     }
   }
-
-
-
 
   // get sum of scripts between two dates
   if (req.method === 'GET') {
@@ -148,5 +145,35 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                 res.status(500).json(error)
               }
           }
+        
+        if(slug && slug[0] == "getErrors"){
+          try{    
+            const pipeline = [
+              {'$match': {
+                  'date': {
+                    "$gte": new Date(slug[1]),
+                    "$lte": new Date(slug[2])
+                  }
+                }}, 
+                {'$match': {
+                  'issues.tags': 'Error'
+                }}
+            ];    
+            const entries = db.collection("Entries")
+            const data = entries.aggregate(pipeline)
+            let interventions: Object[] = [];
+
+            for await (const doc of data) {
+              interventions = [...interventions, ...doc.issues]
+            }
+              
+
+            res.status(200).json(interventions);
+      
+            }catch(error: any){
+              console.log(error)
+              res.status(500).json(error)
+            }
+        }
   }
 }
