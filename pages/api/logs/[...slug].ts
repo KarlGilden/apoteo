@@ -31,47 +31,32 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
 
     if(slug && slug[0] == 'sum'){
         try{
+          const pipeline = [
+            {'$match': {
+                'date': {
+                  "$gte": new Date(slug[1]),
+                  "$lte": new Date(slug[2])
+                }
+              }}
+          ]; 
             // get entries from mongodb
             const entries = db.collection("Entries")
 
             // get data by date
-            const data = await entries.find({
-              date: {
-                "$gte": new Date(slug[1]),
-                "$lte": new Date(slug[2])
-              }
-            }).toArray()
-            .then((ans)=> {
+            const data = entries.aggregate(pipeline)
+            let sumAll = 0;
+            let sumDischarge = 0;
+            let sumOutp= 0;
+            let sumGp= 0;
+            let sumEd= 0;
 
-              // sum of all scripts
-              let sumAll = 0;
-              for(let i=0;i<ans.length;i++){
-                sumAll += ans[i].sum
-              }
-
-              // sum of all discharge
-              let sumDischarge = 0;
-              for(let i=0;i<ans.length;i++){
-                sumDischarge += ans[i].data.discharge.sum
-              }
-
-              // sum of all outpatient
-              let sumOutp= 0;
-              for(let i=0;i<ans.length;i++){
-                sumOutp += ans[i].data.outp.sum
-              }
-
-              // sum of all gp
-              let sumGp= 0;
-              for(let i=0;i<ans.length;i++){
-                sumGp += ans[i].data.gp.sum
-              }
-
-              // sum of all ed
-              let sumEd= 0;
-              for(let i=0;i<ans.length;i++){
-                sumEd += ans[i].data.ed.sum
-              }
+            for await (const doc of data) {
+              sumAll += doc.sum
+              sumDischarge += doc.data.discharge.sum
+              sumOutp += doc.data.outp.sum
+              sumGp += doc.data.gp.sum
+              sumEd += doc.data.ed.sum
+            }
 
               const response = {
                 sumAll: sumAll,
@@ -80,8 +65,8 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                 sumGp: sumGp,
                 sumOutp: sumOutp
               }
+              
               res.status(200).json(response);
-            })
       
             }catch(error: any){
               console.log(error)
@@ -99,22 +84,24 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               // var monthEnd = new Date();
               // monthEnd.setMonth(monthEnd.getMonth()+1)
               // monthEnd.setDate(0)
-        
+              const pipeline = [
+                {'$match': {
+                    'date': {
+                      "$gte": new Date(slug[1]),
+                      "$lte": new Date(slug[2])
+                    }
+                  }}
+              ]; 
+
               const entries = db.collection("Entries")
-              const data = await entries.find({
-                date: {
-                  "$gte": new Date(slug[1]),
-                  "$lte": new Date(slug[2])
-                }
-              }).toArray()
-              .then((ans)=> {
-                
-                let sum = 0;
-                for(let i=0;i<ans.length;i++){
-                  sum += ans[i].issues.length
-                }
-                res.status(200).json(sum);
-              })
+              const data = entries.aggregate(pipeline)
+              let sum = 0;
+
+              for await (const doc of data) {
+                  sum += doc.issues.length
+              }
+
+              res.status(200).json(sum);
         
               }catch(error: any){
                 console.log(error)
@@ -123,22 +110,24 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
           }
 
         if(slug && slug[0] == 'allInterventions'){
-          try{        
+          try{     
+            const pipeline = [
+              {'$match': {
+                  'date': {
+                    "$gte": new Date(slug[1]),
+                    "$lte": new Date(slug[2])
+                  }
+                }}
+            ];    
               const entries = db.collection("Entries")
-              const data = await entries.find({
-                date: {
-                  "$gte": new Date(slug[1]),
-                  "$lte": new Date(slug[2])
-                }
-              }).toArray()
-              .then((ans)=> {
+              const data = entries.aggregate(pipeline)
+              let interventions: Object[] = [];
+
+              for await (const doc of data) {
+                interventions = [...interventions, ...doc.issues]
+              }
                 
-                let interventions: Object[] = [];
-                for(let i=0;i<ans.length;i++){
-                    interventions = [...interventions, ...ans[i].issues]
-                }
-                res.status(200).json(interventions);
-              })
+              res.status(200).json(interventions);
         
               }catch(error: any){
                 console.log(error)
