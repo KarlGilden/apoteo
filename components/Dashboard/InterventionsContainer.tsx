@@ -6,8 +6,8 @@ import TagSelector from './TagSelector'
 
 const InterventionsContainer = () => {
     const [showModal, setShowModal] = useState(false);
-    const [dateFrom, setDateFrom] = useState("2022-05-01")
-    const [dateTo, setDateTo] = useState("2022-05-30")
+    const [dateFrom, setDateFrom] = useState("2022-08-01")
+    const [dateTo, setDateTo] = useState("2022-08-30")
 
     const [selectedIntervention, setSelectedIntervention] = useState({
       id: 0,
@@ -24,6 +24,7 @@ const InterventionsContainer = () => {
       description: "",
       tags: ""
     }])
+    
     const [selectedTag, setSelectedTag] = useState("")
 
     useEffect(()=>{

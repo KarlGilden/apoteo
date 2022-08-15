@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import DatesChanger from './DatesChanger';
 
 const DashboardContainer = () => {
-  const [dateFrom, setDateFrom] = useState("2022-05-01")
-  const [dateTo, setDateTo] = useState("2022-05-30")
+  const [dateFrom, setDateFrom] = useState("2022-08-01")
+  const [dateTo, setDateTo] = useState("2022-08-30")
 
   const [data, setData] = useState({
     sumAll: 0,
