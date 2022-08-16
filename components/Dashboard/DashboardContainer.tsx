@@ -29,7 +29,7 @@ const DashboardContainer = () => {
   }
 
   return (
-    <div className='bg-primary-light p-5 col-span-2'>
+    <div className='bg-primary-light p-5 md:col-span-2'>
         <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
         <div className='p-2'></div>
         <h2 className='text-3xl text-white'>Total scripts: {data?.sumAll}</h2>
