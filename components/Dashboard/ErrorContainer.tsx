@@ -48,16 +48,16 @@ const InterventionsContainer = () => {
     }
 
   return (
-    <div className='bg-primary-light p-5'>
+    <div className='bg-white p-5'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
             
             <div className='p-2'></div>
             
-            <h2 className='text-3xl text-white'>Errors</h2>
+            <h2 className='text-3xl text-dark-green'>Errors</h2>
 
-            <p className='text-white'>Total errors: {interventions.length}</p>
+            <p className='text-dark-green'>Total errors: {interventions.length}</p>
         </div>
 
         <div className='h-[150px] overflow-y-scroll'>

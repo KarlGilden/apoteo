@@ -65,15 +65,15 @@ const InterventionsContainer = () => {
     }
 
   return (
-    <div className='bg-primary-light p-5'>
+    <div className='bg-white p-5'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
             
             <div className='p-2'></div>
             
-            <h2 className='text-3xl text-white'>Interventions</h2>
-            <p className='text-white'>Total interventions: {interventionsSum}</p>
+            <h2 className='text-3xl text-dark-green'>Interventions</h2>
+            <p className='text-dark-green'>Total interventions: {interventionsSum}</p>
 
             <div className='py-3 flex flex-wrap'>
               <TagSelector label={"All"} tag={""} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
@@ -84,7 +84,7 @@ const InterventionsContainer = () => {
               <TagSelector label={"Incomplete / illegible"} tag={"Incomplete / illegible"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
             </div>
 
-            <p className='text-white'>Selected interventions: {interventions?.filter((value)=>{
+            <p className='text-dark-green'>Selected interventions: {interventions?.filter((value)=>{
               if(selectedTag == ""){
                 return value.tags.includes(selectedTag)
               }
@@ -96,7 +96,7 @@ const InterventionsContainer = () => {
               }).length}</p>
         </div>
 
-        <div className='h-[150px] overflow-y-scroll'>
+        <div className='h-[150px] overflow-y-scroll shadow-inner'>
             {interventions?.filter((value)=>{
               if(selectedTag == ""){
                 return value.tags.includes(selectedTag)
