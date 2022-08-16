@@ -21,16 +21,17 @@ const InterventionModal = ({intervention, handleClose, show}:IProps) => {
 
       const modal = show ? (
         <div className={`overflow-hidden fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50  flex justify-center items-center`}>
-          <div className='w-[90%] h-[90%] bg-primary p-5 rounded-md'>
+          <div className='max-w-[600px] w-[90%] bg-white p-5 rounded-md'>
     
             <div className='flex justify-between items-center'>
-              <h1 className='text-white text-4xl'>{intervention.title}</h1>
+              <h1 className='text-dark-green text-4xl'>{intervention.title}</h1>
               <p className='text-2xl' onClick={()=>closeModal()}>close</p>
             </div>
-
+            <div className='p-5'></div>
             <div>
                 <p>{intervention.description}</p>
-                <p>{intervention.tags}</p>
+                <div className='p-5'></div>
+                <p className='px-2 py-1 w-fit bg-secondary text-white border-secondary border-2 rounded-md'>{intervention.tags}</p>
             </div>
     
           </div>
