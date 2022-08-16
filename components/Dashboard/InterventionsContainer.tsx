@@ -72,7 +72,7 @@ const InterventionsContainer = () => {
             
             <div className='p-2'></div>
             
-            <h2 className='text-3xl text-dark-green'>Interventions</h2>
+            <h2 className='text-4xl text-dark-green'>Interventions</h2>
             <p className='text-dark-green'>Total interventions: {interventionsSum}</p>
 
             <div className='py-3 flex flex-wrap'>

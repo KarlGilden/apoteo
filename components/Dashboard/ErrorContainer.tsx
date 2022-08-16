@@ -55,7 +55,7 @@ const InterventionsContainer = () => {
             
             <div className='p-2'></div>
             
-            <h2 className='text-3xl text-dark-green'>Errors</h2>
+            <h2 className='text-4xl text-dark-green'>Errors</h2>
 
             <p className='text-dark-green'>Total errors: {interventions.length}</p>
         </div>

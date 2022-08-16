@@ -32,7 +32,7 @@ const DashboardContainer = () => {
     <div className='bg-white p-5 md:col-span-2'>
         <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
         <div className='p-2'></div>
-        <h2 className='text-3xl text-dark-green'>Total scripts: {data?.sumAll}</h2>
+        <h2 className='text-4xl text-dark-green'>Total scripts: {data?.sumAll}</h2>
         <div className='flex flex-wrap justify-between mt-6'>
           <h3 className='text-xs sm:text-base text-dark-green'>Discharge: {data?.sumDischarge}</h3>
           <h3 className='text-xs sm:text-base text-dark-green'>Out Patient: {data?.sumOutp}</h3>
