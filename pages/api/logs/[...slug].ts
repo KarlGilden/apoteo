@@ -65,7 +65,7 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                 sumGp: sumGp,
                 sumOutp: sumOutp
               }
-              
+
               res.status(200).json(response);
       
             }catch(error: any){
@@ -117,6 +117,9 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                     "$gte": new Date(slug[1]),
                     "$lte": new Date(slug[2])
                   }
+                }},
+                {'$match': {
+                  'issues.tags': {"$ne": "Error"}
                 }}
             ];    
               const entries = db.collection("Entries")
