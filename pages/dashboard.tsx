@@ -11,7 +11,7 @@ const Dashboard: NextPage  = ()=> {
     return(        
         <>
         <div className={`h-[72px] w-full bg-secondary`}></div>
-        <div className=' bg-off-white p-5 grid grid-cols-1 gap-3 auto-rows-min md:grid-cols-2'>
+        <div className=' bg-off-white p-5 grid grid-cols-1 gap-5 auto-rows-min md:grid-cols-2'>
             <DashboardContainer/>
             <InterventionsContainer/>
             <ErrorContainer/>
