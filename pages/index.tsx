@@ -7,7 +7,8 @@ import LoginContainer from '../components/LoginContainer'
 const Home: NextPage = () => {
 
   return (
-    <div className='w-screen min-h-screen pt-[72px] sm:flex sm:pt-0 justify-center items-center bg-white'>
+    <>
+    <main className='w-full min-h-screen pt-[72px] sm:flex sm:pt-0 justify-center items-center bg-white'>
       <section className='p-5  sm:flex'>
 
         <HeaderContainer/>
@@ -17,7 +18,11 @@ const Home: NextPage = () => {
         <LoginContainer/>
 
       </section>
-    </div>
+    </main>
+    <section className='h-screen w-full bg-primary-dark'>
+
+    </section>
+    </>
   )
 }
 
