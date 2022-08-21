@@ -13,16 +13,16 @@ const DatesChanger = ({dateFrom, dateTo, setDateFrom, setDateTo}:IProps) => {
     <div className='flex items-center'>
         <input 
             type="date" 
-            className='rounded-sm px-1 bg-secondary text-white'
+            className='rounded-sm px-1 appearance-none text-sm bg-secondary text-white'
             value={dateFrom}
             onChange={(e)=>{
                 setDateFrom(e.target.value)
             }} 
         />
-        <p className='mx-3 text-dark-green'>to</p>
+        <p className='mx-1 text-dark-green'>to</p>
         <input 
             type="date" 
-            className='rounded-sm px-1 bg-secondary text-white'
+            className='rounded-sm px-1 appearance-none text-sm bg-secondary text-white'
             value={dateTo}
             onChange={(e)=>{
                 setDateTo(e.target.value)
