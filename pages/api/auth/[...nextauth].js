@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
+import bcrypt from 'bcrypt'
+ 
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
