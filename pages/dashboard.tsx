@@ -7,15 +7,24 @@ import InterventionsContainer from '../components/Dashboard/InterventionsContain
 import ErrorContainer from '../components/Dashboard/ErrorContainer'
 
 const Dashboard: NextPage  = ()=> {
+    const {data: session} = useSession();
 
     return(        
         <>
-        <div className={`h-[72px] w-full bg-secondary`}></div>
-        <div className=' bg-off-white p-5 grid grid-cols-1 gap-5 auto-rows-min md:grid-cols-2'>
-            <DashboardContainer/>
-            <InterventionsContainer/>
-            <ErrorContainer/>
-        </div>
+        <div className={`h-[72px] w-full bg-transparent`}></div>
+
+        {session ? 
+            <div className=' bg-off-white p-5 grid grid-cols-1 gap-5 auto-rows-min md:grid-cols-2'>
+                <DashboardContainer/>
+                <InterventionsContainer/>
+                <ErrorContainer/>
+            </div>
+        :
+            <div className='flex justify-center'>
+                <h1 className='text-5xl'>Please log in</h1>
+            </div>
+        }
+
         </>
     )
 }

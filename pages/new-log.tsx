@@ -4,9 +4,10 @@ import IssueModal from '../components/IssueModal'
 import LogNumInput from '../components/LogNumInput'
 import Router from "next/router";
 import { Issue } from '../types/Log';
+import { useSession } from 'next-auth/react';
 
 const NewLog = () => {
-
+    const {data: session} = useSession();
     const [showModal, setShowModal] = useState(false);
     const [logObj, setLogObj] = useState({
         date: new Date().toLocaleDateString('en-CA'),
@@ -116,7 +117,9 @@ const NewLog = () => {
 
   return (
     <>
-    <div className={`h-[72px] w-full  `}></div>
+    <div className={`h-[72px] w-full`}></div>
+    {session ? 
+    <>
     <IssueModal issues={issues} setIssues={setIssues} show={showModal} handleClose={()=>closeModal()}/>
     <div className='bg-primary'>
         <div className='w-full max-w-[600px] m-auto bg-primary p-10 flex flex-col justify-between'>
@@ -311,6 +314,15 @@ const NewLog = () => {
             </div>
         </div>
     </div>
+    </>
+    :
+    <>
+        <div className='flex justify-center'>
+            <h1 className='text-5xl'>Please log in</h1>
+        </div>
+    </>
+    }
+    
     </>
     
   )
