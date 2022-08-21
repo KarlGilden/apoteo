@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
  
 export default NextAuth({
   // Configure one or more authentication providers
+  site: process.env.NEXTAUTH_URL,
   providers: [
     CredentialProvider({
         name: "credentials",
@@ -24,9 +25,7 @@ export default NextAuth({
             }
           }else{
             console.log("Unauthed")
-            return {
-              message: "Incorrect credentials"
-            }
+            return null
           }
         }
       })
