@@ -1,7 +1,9 @@
 import NextAuth from "next-auth"
 import CredentialProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt'
- 
+import { connectToDatabase } from "../../../util/db";
+
+
 export default NextAuth({
   // Configure one or more authentication providers
   site: process.env.NEXTAUTH_URL,
@@ -12,16 +14,27 @@ export default NextAuth({
           username: {label: "Email", type: "email"},
           password: {label: "Password", type: "password"}
         },
-        authorize: (credentials) => {
-          // database lookup
-          
+        authorize: async (credentials) => {
+          let { db } = await connectToDatabase();
+          const users = db.collection("Users")
+
+          const query = { email: credentials.username };
+          const user = await users.findOne(query)
+
+          if(!user){
+            console.log("Not found")
+            return null
+          }
+
+          const validPassword = await bcrypt.compare(credentials.password, user.password);
+
           if(
-            credentials.username == "Heidi@gmail.com" &&
-            credentials.password == "1234"
+            credentials.username == user.email &&
+            validPassword
           ){
             console.log("Authed")
             return {
-              message: "Success"
+              email: user.email
             }
           }else{
             console.log("Unauthed")
