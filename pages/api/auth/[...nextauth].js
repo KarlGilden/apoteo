@@ -19,7 +19,7 @@ export default NextAuth({
           const users = db.collection("Users")
 
           const query = { email: credentials.username };
-          const user = await users.findOne(query)
+          const user = await users.findOne()
 
           if(!user){
             console.log("Not found")
@@ -34,7 +34,8 @@ export default NextAuth({
           ){
             console.log("Authed")
             return {
-              email: user.email
+              email: user.email,
+              name: user.name
             }
           }else{
             console.log("Unauthed")
