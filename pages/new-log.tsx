@@ -1,24 +1,34 @@
 import React, { useState } from 'react'
 import IssueItem from '../components/IssueItem';
-import IssueModal from '../components/IssueModal'
+import IssueModal from '../components/AddInterventionModal'
 import LogNumInput from '../components/LogNumInput'
 import Router from "next/router";
 import { Issue } from '../types/Log';
 import { useSession } from 'next-auth/react';
+import AddInterventionModal from '../components/AddInterventionModal';
+import AddErrorModal from '../components/AddErrorModal';
 
 const NewLog = () => {
     const {data: session} = useSession();
-    const [showModal, setShowModal] = useState(false);
+    const [showInterventionsModal, setShowInterventionsModal] = useState(false);
+    const [showErrorsModal, setShowErrorsModal] = useState(false);
     const [logObj, setLogObj] = useState({
         date: new Date().toLocaleDateString('en-CA'),
         data: {},
-        issues: [
+        interventions: [
+            {}
+        ],
+        errors: [
             {}
         ],
         sum:0
     })
 
-    const [issues, setIssues] = useState<Issue[]>([
+    const [interventions, setInterventions] = useState<Issue[]>([
+
+    ])
+
+    const [errors, setErrors] = useState<Issue[]>([
 
     ])
 
@@ -62,13 +72,23 @@ const NewLog = () => {
         }
     })
 
-    const openModal = () => {
-        setShowModal(true)
+    const openInterventionModal = () => {
+        setShowInterventionsModal(true)
         document.querySelector('body')?.classList.add('overflow-hidden')
     }
 
-    const closeModal = () => {
-        setShowModal(false)
+    const closeInterventionModal = () => {
+        setShowInterventionsModal(false)
+        document.querySelector('body')?.classList.remove('overflow-hidden')
+    }
+
+    const openErrorModal = () => {
+        setShowErrorsModal(true)
+        document.querySelector('body')?.classList.add('overflow-hidden')
+    }
+
+    const closeErrorModal = () => {
+        setShowErrorsModal(false)
         document.querySelector('body')?.classList.remove('overflow-hidden')
     }
 
@@ -102,7 +122,9 @@ const NewLog = () => {
 
         logObj.sum = sumAll(data)
 
-        logObj.issues = issues
+        logObj.interventions = interventions
+        logObj.errors = errors
+
         console.log(logObj)
         await fetch('/api/logs/add', {
             method: 'PUT',
@@ -120,7 +142,9 @@ const NewLog = () => {
     <div className={`h-[72px] w-full`}></div>
     {session ? 
     <>
-    <IssueModal issues={issues} setIssues={setIssues} show={showModal} handleClose={()=>closeModal()}/>
+    <AddInterventionModal interventions={interventions} setInterventions={setInterventions} show={showInterventionsModal} handleClose={()=>closeInterventionModal()}/>
+    <AddErrorModal errors={errors} setErrors={setErrors} show={showErrorsModal} handleClose={()=>closeErrorModal()}/>
+
     <div className='bg-primary'>
         <div className='w-full max-w-[600px] m-auto bg-primary p-10 flex flex-col justify-between'>
         <div>
@@ -289,21 +313,43 @@ const NewLog = () => {
                     </div>
                 </div>
                 <div className='p-1'></div>
+                {/* Interventions  */}
                 <div className='flex flex-col w-full'>
                     <div className='w-full h-full '>
 
                         <div className='w-full bg-secondary p-3'>
-                            <h2 className=''>Issues</h2>
+                            <h2 className=''>Interventions</h2>
                         </div>
 
-                        {issues.length > 0 && issues.map((value, index)=>{
+                        {interventions.length > 0 && interventions.map((value, index)=>{
                             return(
                                 <IssueItem key={index} value={value}/>
                             )
                         })}
 
                         <div className='m-3 text-center'>
-                            <button onClick={()=>{openModal()}} className='p-3 w-[90%] hover:bg-primary-light bg-primary-dark rounded-md text-white'>New issue +</button>
+                            <button onClick={()=>{openInterventionModal()}} className='p-3 w-[90%] hover:bg-primary-light bg-primary-dark rounded-md text-white'>New issue +</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div className='p-1'></div>
+                {/* Errors  */}
+                <div className='flex flex-col w-full'>
+                    <div className='w-full h-full '>
+
+                        <div className='w-full bg-secondary p-3'>
+                            <h2 className=''>Errors</h2>
+                        </div>
+
+                        {errors.length > 0 && errors.map((value, index)=>{
+                            return(
+                                <IssueItem key={index} value={value}/>
+                            )
+                        })}
+
+                        <div className='m-3 text-center'>
+                            <button onClick={()=>{openErrorModal()}} className='p-3 w-[90%] hover:bg-primary-light bg-primary-dark rounded-md text-white'>New issue +</button>
                         </div>
 
                     </div>

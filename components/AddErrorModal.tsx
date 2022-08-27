@@ -4,8 +4,8 @@ import FormInput from './FormInput'
 interface IProps {
   show:boolean,
   handleClose:()=>void,
-  issues: any[],
-  setIssues: (issue:any)=>void
+  errors: any[],
+  setErrors: (issue:any)=>void
 
 }
 
@@ -15,7 +15,7 @@ type Issue = {
   tags: string
 }
 
-const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
+const AddErrorModal = ({show, handleClose, errors, setErrors}:IProps) => {
   const [isBrowser, setIsBrowser] = useState(false)
 
   const [issueTitle, setIssueTitle] = useState("")
@@ -43,7 +43,7 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
       }
 
       setIssueTags([""])
-      setIssues([...issues, newIssue])
+      setErrors([...errors, newIssue])
       handleClose()
     }
   }
@@ -65,7 +65,7 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
       <div className='max-w-[600px] w-[90%] h-[90%] bg-primary p-5 rounded-md flex flex-col justify-between'>
 
         <div className='flex justify-between items-center'>
-          <h1 className='text-white text-4xl'>New Issue</h1>
+          <h1 className='text-white text-4xl'>New Error</h1>
           <p className='text-2xl' onClick={()=>closeModal()}>close</p>
         </div>
 
@@ -100,4 +100,4 @@ const IssueModal = ({show, handleClose, issues, setIssues}:IProps) => {
   }
 }
 
-export default IssueModal
+export default AddErrorModal
