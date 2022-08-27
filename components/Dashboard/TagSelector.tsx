@@ -9,7 +9,7 @@ interface IProps{
 const TagSelector = ({tag, label, selectedTag, setSelectedTag}:IProps) => {
 
   return (
-    <small className={`min-w-[50px] text-center border-[2px] p-1 rounded-md m-1 ml-0 cursor-pointer ${tag == selectedTag ? 'bg-secondary border-secondary' : 'bg-transparent border-off-white text-dark-green hover:border-primary'}`} onClick={()=>setSelectedTag(tag)}>{label}</small>
+    <small className={`min-w-[50px] text-center border-[2px] px-2 py-1 rounded-md m-1 ml-0 cursor-pointer ${tag == selectedTag ? 'bg-secondary border-secondary' : 'bg-transparent border-off-white text-dark-green hover:border-primary'}`} onClick={()=>setSelectedTag(tag)}>{label}</small>
   )
 }
 

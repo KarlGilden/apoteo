@@ -68,10 +68,36 @@ const InterventionsContainer = () => {
             <h2 className='text-4xl text-dark-green'>Errors</h2>
 
             <p className='text-dark-green'>Total errors: {errors.length}</p>
+
+            <div className='py-3 flex flex-wrap'>
+              <TagSelector label={"All"} tag={""} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Near miss"} tag={"Near miss"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+              <TagSelector label={"Incident"} tag={"Incident"} selectedTag={selectedTag} setSelectedTag={setSelectedTag}/>
+            </div>
+
+            <p className='text-dark-green'>Selected interventions: {errors?.filter((value)=>{
+              if(selectedTag == ""){
+                return value.tags.includes(selectedTag)
+              }
+              if(selectedTag == "All"){
+                return value.tags.includes("")
+              }
+              const tags = value.tags.split(",");
+              return tags.includes(selectedTag)
+              }).length}</p>
         </div>
 
+
+        
+
         <div className='h-[150px] overflow-y-scroll'>
-            {errors?.map((value:any, index:number)=>{
+            {errors?.filter((value)=>{
+              if(selectedTag == ""){
+                return value.tags.includes(selectedTag)
+              }
+              const tags = value.tags.split(",");
+              return tags.includes(selectedTag)
+              })?.map((value:any, index:number)=>{
                 return (
                     <InterventionItem key={index} openModal={setShowModal} setIntervention={setSelectedError} intervention={value}/>
                 )

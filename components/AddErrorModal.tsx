@@ -75,12 +75,8 @@ const AddErrorModal = ({show, handleClose, errors, setErrors}:IProps) => {
         </div>
 
         <div className='flex flex-wrap m-5'>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved serious harm') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved serious harm')}>Improved serious harm</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved harm') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved harm')}>Improved harm</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved efficacy') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved efficacy')}>Improved efficacy</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved compliance') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved compliance')}>Improved compliance</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Incomplete / illegible') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Incomplete / illegible')}>Incomplete / illegible</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Error') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Error')}>Error</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Incident') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Incident')}>Incidents</p>
+          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Near miss') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Near miss')}>Near Miss</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>

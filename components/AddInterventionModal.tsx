@@ -80,7 +80,6 @@ const AddInterventionModal = ({show, handleClose, interventions, setIntervention
           <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved efficacy') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved efficacy')}>Improved efficacy</p>
           <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Improved compliance') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Improved compliance')}>Improved compliance</p>
           <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Incomplete / illegible') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Incomplete / illegible')}>Incomplete / illegible</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Error') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Error')}>Error</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>
