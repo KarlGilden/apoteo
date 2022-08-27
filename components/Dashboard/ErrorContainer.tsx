@@ -10,14 +10,14 @@ const InterventionsContainer = () => {
     const [dateFrom, setDateFrom] = useState("2022-08-01")
     const [dateTo, setDateTo] = useState("2022-08-30")
 
-    const [selectedIntervention, setSelectedIntervention] = useState({
+    const [selectedError, setSelectedError] = useState({
       id: 0,
       title: "",
       description: "",
       tags: ""
     })
 
-    const [interventions, setInterventions] = useState<Issue[]>([])
+    const [errors, setErrors] = useState<Issue[]>([])
     
     const [selectedTag, setSelectedTag] = useState("")
 
@@ -30,10 +30,20 @@ const InterventionsContainer = () => {
         await fetch('/api/logs/getErrors/' + `${dateFrom}/${dateTo}`, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
-          }).then(response => response.json())
+          }).then(response => {
+            if(!response.ok){
+              throw new Error("error")
+            }
+            else{
+              return response.json()
+            }
+          })
           .then(d => {
               console.log(d)
-              setInterventions(d)
+              setErrors(d)
+          })
+          .catch(e => {
+            console.log(e)
           })
       }
 
@@ -49,7 +59,7 @@ const InterventionsContainer = () => {
 
   return (
     <div className='bg-white p-5'>
-        <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
+        <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedError}/>
         <div className=''>
             <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
             
@@ -57,13 +67,13 @@ const InterventionsContainer = () => {
             
             <h2 className='text-4xl text-dark-green'>Errors</h2>
 
-            <p className='text-dark-green'>Total errors: {interventions.length}</p>
+            <p className='text-dark-green'>Total errors: {errors.length}</p>
         </div>
 
         <div className='h-[150px] overflow-y-scroll'>
-            {interventions?.map((value:any, index:number)=>{
+            {errors?.map((value:any, index:number)=>{
                 return (
-                    <InterventionItem key={index} openModal={setShowModal} setIntervention={setSelectedIntervention} intervention={value}/>
+                    <InterventionItem key={index} openModal={setShowModal} setIntervention={setSelectedError} intervention={value}/>
                 )
             })}       
         </div>

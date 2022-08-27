@@ -14,7 +14,8 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
             const result = await entries.insertOne({
               date: new Date(req.body.date),
               data: req.body.data,
-              issues: req.body.issues,
+              interventions: req.body.interventions,
+              errors: req.body.errors,
               sum: req.body.sum
             })
             .then(response => {
@@ -98,7 +99,7 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               let sum = 0;
 
               for await (const doc of data) {
-                  sum += doc.issues.length
+                  sum += doc.interventions.length
               }
 
               res.status(200).json(sum);
@@ -109,7 +110,34 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               }
           }
 
-        if(slug && slug[0] == 'allInterventions'){
+          if(slug && slug[0] == 'sumErrors'){
+            try{
+                const pipeline = [
+                  {'$match': {
+                      'date': {
+                        "$gte": new Date(slug[1]),
+                        "$lte": new Date(slug[2])
+                      }
+                    }}
+                ]; 
+  
+                const entries = db.collection("Entries")
+                const data = entries.aggregate(pipeline)
+                let sum = 0;
+  
+                for await (const doc of data) {
+                    sum += doc.errors.length
+                }
+  
+                res.status(200).json(sum);
+          
+                }catch(error: any){
+                  console.log(error)
+                  res.status(500).json(error)
+                }
+            }
+
+        if(slug && slug[0] == 'getInterventions'){
           try{     
             const pipeline = [
               {'$match': {
@@ -117,9 +145,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                     "$gte": new Date(slug[1]),
                     "$lte": new Date(slug[2])
                   }
-                }},
-                {'$match': {
-                  'issues.tags': {"$ne": "Error"}
                 }}
             ];    
               const entries = db.collection("Entries")
@@ -127,9 +152,9 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
               let interventions: Object[] = [];
 
               for await (const doc of data) {
-                interventions = [...interventions, ...doc.issues]
+                interventions = [...interventions, ...doc.interventions]
               }
-                
+              console.log(interventions)
               res.status(200).json(interventions);
         
               }catch(error: any){
@@ -146,21 +171,18 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                     "$gte": new Date(slug[1]),
                     "$lte": new Date(slug[2])
                   }
-                }}, 
-                {'$match': {
-                  'issues.tags': 'Error'
                 }}
             ];    
             const entries = db.collection("Entries")
             const data = entries.aggregate(pipeline)
-            let interventions: Object[] = [];
+            let errors: Object[] = [];
 
             for await (const doc of data) {
-              interventions = [...interventions, ...doc.issues]
+              errors = [...errors, ...doc.errors]
             }
               
 
-            res.status(200).json(interventions);
+            res.status(200).json(errors);
       
             }catch(error: any){
               console.log(error)

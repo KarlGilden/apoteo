@@ -36,7 +36,14 @@ const InterventionsContainer = () => {
         await fetch('/api/logs/sumInterventions/' + `${dateFrom}/${dateTo}`, {
           method: 'GET',
           headers: {"Content-Type": "application/json"}
-        }).then(response => response.json())
+        }).then(response => {
+          if(!response.ok){
+            throw new Error("error")
+          }
+          else{
+            return response.json()
+          }
+        })
         .then(d => {
             console.log(d)
             setInterventionsSum(d)
@@ -44,13 +51,23 @@ const InterventionsContainer = () => {
       }
 
       const getInterventions = async () => {
-        await fetch('/api/logs/allInterventions/' + `${dateFrom}/${dateTo}`, {
+        await fetch('/api/logs/getInterventions/' + `${dateFrom}/${dateTo}`, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
-          }).then(response => response.json())
+          }).then(response => {
+            if(!response.ok){
+              throw new Error("error")
+            }
+            else{
+              return response.json()
+            }
+          })
           .then(d => {
               console.log(d)
               setInterventions(d)
+          })
+          .catch(e => {
+            console.log(e)
           })
       }
 
