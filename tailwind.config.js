@@ -15,8 +15,9 @@ module.exports = {
       "secondary-light": "#29da6a",
       "secondary-dull": "#43644e",
       "off-white": "#E6E6E6",
-      "light-grey": "f1f1f1",
+      "light-grey": "#f1f1f1",
       "dark-green": "#202020",
+      "grey": "#6b7280",
       "white": "#fff",
       "black": "#000",
       "transparent": "transparent"

@@ -62,10 +62,10 @@ const AddErrorModal = ({show, handleClose, errors, setErrors}:IProps) => {
 
   const modal = show ? (
     <div className={`overflow-hidden fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50  flex justify-center items-center`}>
-      <div className='max-w-[600px] w-[90%] h-[90%] bg-primary p-5 rounded-md flex flex-col justify-between'>
+      <div className='max-w-[600px] w-[90%] h-[90%] bg-white p-5 rounded-md flex flex-col justify-between'>
 
         <div className='flex justify-between items-center'>
-          <h1 className='text-white text-4xl'>New Error</h1>
+          <h1 className='text-4xl'>New Error</h1>
           <p className='text-2xl' onClick={()=>closeModal()}>close</p>
         </div>
 
@@ -75,8 +75,8 @@ const AddErrorModal = ({show, handleClose, errors, setErrors}:IProps) => {
         </div>
 
         <div className='flex flex-wrap m-5'>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Incident') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Incident')}>Incidents</p>
-          <p className={`p-2 m-2 cursor-pointer border-white border-2 rounded-md text-white ${issueTags.includes('Near miss') ? 'bg-secondary text-black border-secondary' : 'bg-transparent'}`} onClick={()=>toggleTags('Near miss')}>Near Miss</p>
+          <p className={`p-2 m-2 cursor-pointer border-2 rounded-md ${issueTags.includes('Incident') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Incident')}>Incidents</p>
+          <p className={`p-2 m-2 cursor-pointer border-2 rounded-md ${issueTags.includes('Near miss') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Near miss')}>Near Miss</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>
