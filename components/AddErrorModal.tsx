@@ -71,12 +71,15 @@ const AddErrorModal = ({show, handleClose, errors, setErrors}:IProps) => {
 
         <div>
           <FormInput setFormState={setIssueTitle} type={'text'} label={'Title'} />
-          <FormInput setFormState={setIssueDesc} type={'text'} label={'Description'} />
+          <div className='h-full'>
+            <label className='text-dark-green mb-1' htmlFor="">Description:</label>
+            <textarea className='w-full h-full max-h-[100px] resize-none border-off-white focus:outline-none focus:bg-off-white focus:border-[#111] text-dark-green rounded-md border-[2px] p-1 bg-transparent' onChange={(e)=>setIssueDesc(e.target.value)} ></textarea>
+          </div>       
         </div>
 
         <div className='flex flex-wrap m-5'>
-          <p className={`p-2 m-2 cursor-pointer border-2 rounded-md ${issueTags.includes('Incident') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Incident')}>Incidents</p>
-          <p className={`p-2 m-2 cursor-pointer border-2 rounded-md ${issueTags.includes('Near miss') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Near miss')}>Near Miss</p>
+          <p className={`text-sm px-1 py-[2px] m-1 cursor-pointer border-2 rounded-md ${issueTags.includes('Incident') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Incident')}>Incidents</p>
+          <p className={`text-sm px-1 py-[2px] m-1 cursor-pointer border-2 rounded-md ${issueTags.includes('Near miss') ? 'bg-secondary text-white border-secondary' : 'bg-transparent border-off-white'}`} onClick={()=>toggleTags('Near miss')}>Near Miss</p>
         </div>
 
         <button onClick={()=>{handleSubmit(); }} className='p-3 bg-secondary w-full'>Submit</button>
