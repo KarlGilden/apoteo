@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html>
       <Head />
-      <body className='bg-primary'>
+      <body className='bg-white'>
         <Main />
         <NextScript />
         <div id='modal-root'></div>
