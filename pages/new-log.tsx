@@ -7,6 +7,7 @@ import { Issue } from '../types/Log';
 import { useSession } from 'next-auth/react';
 import AddInterventionModal from '../components/AddInterventionModal';
 import AddErrorModal from '../components/AddErrorModal';
+import ScriptInput from '../components/ScriptInput';
 
 const NewLog = () => {
     const {data: session} = useSession();
@@ -112,6 +113,26 @@ const NewLog = () => {
           return sum;
     }
 
+    const onScriptChange = (value:number, type:string, script:string) => {
+        if(type == 'discharge'){
+            setData({...data, discharge: {...data.discharge, [script]: value}})
+            return
+        }
+        if(type == 'outp'){
+            setData({...data, outp: {...data.outp, [script]: value}})
+            return
+        }
+        if(type == 'gp'){
+            setData({...data, gp: {...data.gp, [script]: value}})
+            return
+        }
+        if(type == 'ed'){
+            setData({...data, ed: {...data.ed, [script]: value}})
+            return
+        }
+
+    }
+
     const handleSubmit = async () => {
         data.discharge.sum = sum(data.discharge);
         data.outp.sum = sum(data.outp);
@@ -159,34 +180,18 @@ const NewLog = () => {
             <div className='flex flex-col h-full'>
                 <div className='flex flex-col sm:flex-row w-full items-center mb-10 sm:items-start'>
                     <div className='w-full'>
-
                         <div>
                             <p className='text-xl'>Discharge</p>
                             <hr className=' mb-1' />
-                            <div className='flex justify-between sm:w-full items-center'>
-                                <label className='text-sm ' htmlFor="">Regular:</label>
-                                <input className='py-2 px-1 w-[75px] sm:w-[200px] border-black border-[1px] rounded-sm' type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, other: parseInt(e.target.value)}})}}/>
-                            </div>
+                            <ScriptInput label="Regular" type="discharge" script='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <div className='flex justify-between w-full sm:w-full '>
-                                <label className='text-sm ' htmlFor="">Blister Packs:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px] rounded-sm' type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, blisterPacks: parseInt(e.target.value)}})}}/>
-                            </div>
+                            <ScriptInput label="Blister Packs" type="discharge" script='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Yellow Cards:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px] rounded-sm' type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, yellowCards: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Yellow Cards" type="discharge" script='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Compounding:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px] rounded-sm' type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, compounding: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Compounding" type="discharge" script='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Paediatrics:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, discharge: {...data.discharge, paediatric: parseInt(e.target.value)}})}}/>
-                            </div>                       
+                            <ScriptInput label="Paediatrics" type="discharge" script='paediatric' onScriptChange={onScriptChange}/>                     
                         </div>
 
                         <div className='p-3'></div>
@@ -194,89 +199,41 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>Out Patient</p>
                             <hr className=' mb-1' />
-
-                            <div className='flex justify-between w-full sm:w-full  items-center'>
-                                <label className='text-sm ' htmlFor="">Regular:</label>
-                                <input className='py-2 px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, other: parseInt(e.target.value)}})}}/>
-                            </div>      
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Blister Packs:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, blisterPacks: parseInt(e.target.value)}})}}/>
-                            </div>
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Yellow Cards:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, yellowCards: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Compounding:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, compounding: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Paediatrics:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, paediatric: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Aclasta:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, aclasta: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Bicillin:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, bicillin: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Binocrit:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, binocrit: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Eylea:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, eylea: parseInt(e.target.value)}})}}/>
-                            </div> 
+                            <ScriptInput label="Regular" type="outp" script='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Ferinject:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, outp: {...data.outp, ferinject: parseInt(e.target.value)}})}}/>
-                            </div>   
+                            <ScriptInput label="Blister Packs" type="outp" script='blisterPacks' onScriptChange={onScriptChange}/>
+                            <div className='p-1'></div>
+                            <ScriptInput label="Yellow Cards" type="outp" script='yellowCards' onScriptChange={onScriptChange}/> 
+                            <div className='p-1'></div>
+                            <ScriptInput label="Compounding" type="outp" script='compounding' onScriptChange={onScriptChange}/> 
+                            <div className='p-1'></div>
+                            <ScriptInput label="Paediatrics" type="outp" script='paediatric' onScriptChange={onScriptChange}/>   
+                            <div className='p-1'></div>
+                            <ScriptInput label="Aclasta" type="outp" script='aclasta' onScriptChange={onScriptChange}/>   
+                            <div className='p-1'></div>
+                            <ScriptInput label="Bicillin" type="outp" script='bicillin' onScriptChange={onScriptChange}/>   
+                            <div className='p-1'></div>
+                            <ScriptInput label="Binocrit" type="outp" script='binocrit' onScriptChange={onScriptChange}/>   
+                            <div className='p-1'></div>
+                            <ScriptInput label="Eylea" type="outp" script='eylea' onScriptChange={onScriptChange}/>   
+                            <div className='p-1'></div>   
+                            <ScriptInput label="Ferinject" type="outp" script='ferinject' onScriptChange={onScriptChange}/>   
                         </div>
 
                         <div className='p-3'></div>
 
                         <div>
-
                             <p className='text-xl'>GP</p>
                             <hr className=' mb-1' />
-
-                            <div className='flex justify-between w-full sm:w-full  items-center'>
-                                <label className='text-sm ' htmlFor="">Regular:</label>
-                                <input className='py-2 px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, other: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Regular" type="gp" script='other' onScriptChange={onScriptChange}/>
+                            <div className='p-1'></div> 
+                            <ScriptInput label="Blister Packs" type="gp" script='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Blister Packs:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, blisterPacks: parseInt(e.target.value)}})}}/>
-                            </div>
+                            <ScriptInput label="Yellow Cards" type="gp" script='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Yellow Cards:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, yellowCards: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Compounding" type="gp" script='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Compounding:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, compounding: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Paediatrics:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, gp: {...data.gp, paediatric: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Paediatrics" type="gp" script='paediatric' onScriptChange={onScriptChange}/>  
                          </div>
 
                         <div className='p-3'></div>
@@ -284,35 +241,21 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>ED</p>
                             <hr className=' mb-1' />
-
-                            <div className='flex justify-between w-full sm:w-full items-center'>
-                                <label className='text-sm ' htmlFor="">Regular:</label>
-                                <input className='py-2 px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, other: parseInt(e.target.value)}})}}/>
-                            </div> 
+                            <ScriptInput label="Regular" type="ed" script='other' onScriptChange={onScriptChange}/>
+                            <div className='p-1'></div> 
+                            <ScriptInput label="Blister Packs" type="ed" script='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Blister Packs:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, blisterPacks: parseInt(e.target.value)}})}}/>
-                            </div>
+                            <ScriptInput label="Yellow Cards" type="ed" script='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Yellow Cards:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, yellowCards: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Compounding" type="ed" script='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Compounding:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, compounding: parseInt(e.target.value)}})}}/>
-                            </div>  
-                            <div className='p-1'></div>
-                            <div className='flex justify-between w-full sm:w-full'>
-                                <label className='text-sm ' htmlFor="">Paediatrics:</label>
-                                <input className='px-1 w-[75px] sm:w-[200px] border-black border-[1px]' type="number" onChange={(e)=>{setData({...data, ed: {...data.ed, paediatric: parseInt(e.target.value)}})}}/>
-                            </div>  
+                            <ScriptInput label="Paediatrics" type="ed" script='paediatric' onScriptChange={onScriptChange}/>    
                         </div>
                     </div>
                 </div>
+
                 <div className='p-1'></div>
+
                 {/* Interventions  */}
                 <div className='flex flex-col w-full'>
                     <div className='w-full h-full '>
