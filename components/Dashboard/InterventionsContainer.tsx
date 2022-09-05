@@ -3,11 +3,12 @@ import DatesChanger from './DatesChanger';
 import InterventionItem from './InterventionItem'
 import InterventionModal from './InterventionModal';
 import TagSelector from './TagSelector'
-
-const InterventionsContainer = () => {
+interface IProps{
+  dateFrom:string,
+  dateTo:string
+}
+const InterventionsContainer = ({dateFrom, dateTo}:IProps) => {
     const [showModal, setShowModal] = useState(false);
-    const [dateFrom, setDateFrom] = useState("2022-08-01")
-    const [dateTo, setDateTo] = useState("2022-08-30")
 
     const [selectedIntervention, setSelectedIntervention] = useState({
       id: 0,
@@ -84,9 +85,7 @@ const InterventionsContainer = () => {
   return (
     <div className='bg-white p-5'>
         <InterventionModal show={showModal} handleClose={closeModal} intervention={selectedIntervention}/>
-        <div className=''>
-            <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
-            
+        <div className=''>            
             <div className='p-2'></div>
             
             <h2 className='text-4xl text-dark-green'>Interventions</h2>
