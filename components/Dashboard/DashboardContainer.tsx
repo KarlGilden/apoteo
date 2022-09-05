@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import DatesChanger from './DatesChanger';
 
-const DashboardContainer = () => {
-  const [dateFrom, setDateFrom] = useState("2022-08-01")
-  const [dateTo, setDateTo] = useState("2022-08-30")
+interface IProps{
+  dateFrom:string,
+  dateTo:string
+}
+
+const DashboardContainer = ({dateFrom, dateTo}:IProps) => {
 
   const [data, setData] = useState({
     sumAll: 0,
@@ -30,7 +33,6 @@ const DashboardContainer = () => {
 
   return (
     <div className='bg-white p-5 md:col-span-2'>
-        <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>
         <div className='p-2'></div>
         <h2 className='text-4xl text-dark-green'>Total scripts: {data?.sumAll}</h2>
         <div className='flex flex-wrap justify-between mt-6'>
