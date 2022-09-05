@@ -12,7 +12,7 @@ const History: NextPage = () => {
 
     useEffect(()=>{
         getData()
-    }, [])
+    }, [dateFrom, dateTo])
 
     const getData = async () => {
         await fetch(`/api/history/${dateFrom}/${dateTo}`, {
