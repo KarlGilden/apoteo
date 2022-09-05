@@ -36,10 +36,10 @@ const DashboardContainer = ({dateFrom, dateTo}:IProps) => {
         <div className='p-2'></div>
         <h2 className='text-4xl text-dark-green'>Total scripts: {data?.sumAll}</h2>
         <div className='flex flex-wrap justify-between mt-6'>
-          <h3 className='text-xs sm:text-base text-dark-green'>Discharge: {data?.sumDischarge}</h3>
-          <h3 className='text-xs sm:text-base text-dark-green'>Out Patient: {data?.sumOutp}</h3>
-          <h3 className='text-xs sm:text-base text-dark-green'>GP: {data?.sumGp}</h3>
-          <h3 className='text-xs sm:text-base text-dark-green'>ED: {data?.sumEd}</h3>
+          <h3 className='text-xs md:text-2xl sm:text-base text-dark-green'>Discharge: {data?.sumDischarge}</h3>
+          <h3 className='text-xs md:text-2xl sm:text-base text-dark-green'>Out Patient: {data?.sumOutp}</h3>
+          <h3 className='text-xs md:text-2xl sm:text-base text-dark-green'>GP: {data?.sumGp}</h3>
+          <h3 className='text-xs md:text-2xl sm:text-base text-dark-green'>ED: {data?.sumEd}</h3>
         </div>
     </div>
   )

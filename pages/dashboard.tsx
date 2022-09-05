@@ -18,7 +18,7 @@ const Dashboard: NextPage  = ()=> {
         {session ? 
             <>
             <div className='bg-off-white p-5 pt-0'>
-                <div className='px-5 py-12 sm:py-16'>
+                <div className='px-5 py-6 sm:py-10'>
                     <h3 className='text-3xl sm:text-5xl  text-center sm:text-left'>Welcome back, {session.user?.name}</h3>
                     <div className='p-5'></div>
                     <DatesChanger dateFrom={dateFrom} dateTo={dateTo} setDateFrom={setDateFrom} setDateTo={setDateTo}/>

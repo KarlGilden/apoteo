@@ -1,9 +1,13 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import {BsGithub} from 'react-icons/bs'
+import {MdOutlineWork} from 'react-icons/md'
 import { useEffect } from 'react'
 import FormInput from '../components/FormInput'
 import HeaderContainer from '../components/HeaderContainer'
 import LoginContainer from '../components/LoginContainer'
-
+import DashboardImg from '../public/dashboard.jpeg'
 const Home: NextPage = () => {
 
   return (
@@ -19,22 +23,46 @@ const Home: NextPage = () => {
 
       </section>
     </main>
-    <section className='h-screen w-full bg-primary-dark p-10 '>
-      <h1 className='text-white text-4xl'>What is Apoteo?</h1>
+
+    <section className='h-screen w-full bg-primary-dark p-16 text-white'>
+      <h1 className='text-white text-5xl'>What is Apoteo?</h1>
+
       <p className='p-2'></p>
-      <div className=' sm:flex'>
-        <p className='text-white'>Lorem ipsum dolor sit amet, 
-          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-          </p>
-          <p className='p-2'></p>
-          <div className='w-full bg-secondary sm:w-[50%]'>
 
+      <div className='flex flex-col sm:flex-row'>
+        <div className='sm:w-[50%]'>
+          <h2 className='text-3xl text-white italic '>A web based solution to pharmacy data entry and analysis</h2>
+          
+          <div className='p-2'></div>
+          
+          <div >
+            <p className=''><b className='text-xl'>Problem:</b> Entering pharmacy data by hand is difficult and finding it even harder.</p>
+            <div className='p-2'></div>
+            <p><b className='text-xl'>Solution:</b> A lightweight web based application to handle data entry and a sleek dashboard to facilitate analysis</p>
           </div>
-      </div>
 
+          <div className='p-2'></div>
+
+          <div className='flex items-center'>
+            <h5>Links:</h5>
+            <div className='p-2'></div>
+            <Link target={"_blank"} href={'https://github.com/KarlGilden/apoteo'}><BsGithub className='text-3xl hover:fill-secondary cursor-pointer'/></Link>
+            <div className='p-2'></div>
+            <Link target={"_blank"} href={'https://kgilden.com'}><MdOutlineWork className='text-3xl hover:fill-secondary cursor-pointer'/></Link>
+          </div>
+
+        </div>
+
+        <div className='p-2'></div>
+
+        <div className='sm:w-[50%]'>
+          <Image src={DashboardImg} 
+            width={800}
+            height={450}
+            layout="responsive" />
+        </div>
+
+      </div>
     </section>
     </>
   )
