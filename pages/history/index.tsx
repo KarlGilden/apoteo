@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
-import DatesChanger from '../components/Dashboard/DatesChanger';
-import HistoryList from '../components/History/HistoryList';
+import DatesChanger from '../../components/Dashboard/DatesChanger';
+import HistoryList from '../../components/History/HistoryList';
 
 const History: NextPage = () => {
     const {data: session} = useSession();
