@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from "../../../util/db";
 import {Issue} from '../../../types/Log'
+import { ObjectId, ObjectID } from 'mongodb';
 export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { db } = await connectToDatabase();
   let { slug } = req.query
@@ -185,6 +186,24 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
             res.status(200).json(errors);
       
             }catch(error: any){
+              console.log(error)
+              res.status(500).json(error)
+            }
+        }
+
+        if(slug && slug[0] == "getSingle"){
+          try{
+            const entries = db.collection("Entries")
+            console.log(slug[0])
+            entries.findOne({'_id':new ObjectId(slug[1])})
+              .then(function(doc) {
+                if(!doc){
+                  throw new Error('No record found.');
+                }
+                console.log(doc);
+                res.status(200).json(doc)
+  })
+          }catch(error: any){
               console.log(error)
               res.status(500).json(error)
             }
