@@ -17,14 +17,10 @@ const Home: NextPage = () => {
 
         <HeaderContainer/>
 
-        <div className='p-10 sm:p-5'></div>
-
-        <LoginContainer/>
-
       </section>
     </main>
 
-    <section className='h-screen w-full bg-primary-dark p-16 text-white'>
+    <section id='about' className='h-screen w-full bg-primary-dark p-16 text-white'>
       <h1 className='text-white text-5xl'>What is Apoteo?</h1>
 
       <p className='p-2'></p>
