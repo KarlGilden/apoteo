@@ -8,30 +8,20 @@ import { useSession } from 'next-auth/react';
 import AddInterventionModal from '../components/AddInterventionModal';
 import AddErrorModal from '../components/AddErrorModal';
 import ScriptInput from '../components/ScriptInput';
+import { sum, sumAll } from '../util/functions';
 
 const NewLog = () => {
+
     const {data: session} = useSession();
+
+    // Modal state
     const [showInterventionsModal, setShowInterventionsModal] = useState(false);
     const [showErrorsModal, setShowErrorsModal] = useState(false);
-    const [logObj, setLogObj] = useState({
-        date: new Date().toLocaleDateString('en-CA'),
-        data: {},
-        interventions: [
-            {}
-        ],
-        errors: [
-            {}
-        ],
-        sum:0
-    })
 
-    const [interventions, setInterventions] = useState<Issue[]>([
-
-    ])
-
-    const [errors, setErrors] = useState<Issue[]>([
-
-    ])
+    // Entry obj state
+    const [date, setDate] = useState(new Date().toLocaleDateString('en-CA'))
+    const [interventions, setInterventions] = useState<Issue[]>([])
+    const [errors, setErrors] = useState<Issue[]>([])
 
     const [data, setData] = useState({
         discharge: {
@@ -93,69 +83,38 @@ const NewLog = () => {
         document.querySelector('body')?.classList.remove('overflow-hidden')
     }
 
-    const sum = (obj:any) => {
-        var sum = 0;
-        for( var el in obj ) {
-            if( obj.hasOwnProperty( el ) ) {
-              sum += parseFloat( obj[el] );
-            }
-          }
-          return sum;
+    // handle onChange for custom script inputs
+    const onScriptChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setData({...data, [e.target.id]: {...data[e.target.id as keyof typeof data], [e.target.name]: e.target.value}})
     }
 
-    const sumAll = (obj:any) => {
-        var sum = 0;
-        for( var el in obj ) {
-            if( obj.hasOwnProperty( el ) ) {
-              sum += parseFloat( obj[el].sum );
-            }
-          }
-          return sum;
-    }
-
-    const onScriptChange = (value:number, type:string, script:string) => {
-        if(type == 'discharge'){
-            setData({...data, discharge: {...data.discharge, [script]: value}})
-            return
-        }
-        if(type == 'outp'){
-            setData({...data, outp: {...data.outp, [script]: value}})
-            return
-        }
-        if(type == 'gp'){
-            setData({...data, gp: {...data.gp, [script]: value}})
-            return
-        }
-        if(type == 'ed'){
-            setData({...data, ed: {...data.ed, [script]: value}})
-            return
-        }
-
-    }
-
+    // format obj to store in db
     const handleSubmit = async () => {
+
+        // sum all scripts data
         data.discharge.sum = sum(data.discharge);
         data.outp.sum = sum(data.outp);
         data.gp.sum = sum(data.gp);
         data.ed.sum = sum(data.ed);
 
-        logObj.data = data
+        const entry = {
+            date: date,
+            data: data,
+            interventions: interventions,
+            errors: errors,
+            sum: sumAll(data)
+        }
 
-        logObj.sum = sumAll(data)
-
-        logObj.interventions = interventions
-        logObj.errors = errors
-
-        console.log(logObj)
-        await fetch('/api/entries/add', {
-            method: 'PUT',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(logObj)
-        })
-        .then(response => response.json())
-        .then(data => {
-            Router.push("/dashboard");
-        })
+        console.log(entry)
+        // await fetch('/api/entries/add', {
+        //     method: 'PUT',
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(logObj)
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     Router.push("/dashboard");
+        // })
     }
 
   return (
@@ -170,10 +129,10 @@ const NewLog = () => {
         <div className='w-full max-w-[600px] m-auto bg-white p-10 flex flex-col justify-between'>
         <div>
             <input 
-            value={logObj.date} 
+            value={date} 
             className='bg-transparent text-xl' 
             type="date"
-            onChange={(e)=>setLogObj({ ...logObj, date: e.target.value })}
+            onChange={(e)=>setDate(e.target.value)}
             />
         </div>
         <div className='p-3'></div>
@@ -183,15 +142,15 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>Discharge</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" type="discharge" script='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="discharge" name='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" type="discharge" script='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="discharge" name='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" type="discharge" script='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="discharge" name='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" type="discharge" script='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="discharge" name='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" type="discharge" script='paediatric' onScriptChange={onScriptChange}/>                     
+                            <ScriptInput label="Paediatrics" id="discharge" name='paediatric' onScriptChange={onScriptChange}/>                     
                         </div>
 
                         <div className='p-3'></div>
@@ -199,25 +158,25 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>Out Patient</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" type="outp" script='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="outp" name='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" type="outp" script='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="outp" name='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" type="outp" script='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="outp" name='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" type="outp" script='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="outp" name='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" type="outp" script='paediatric' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Paediatrics" id="outp" name='paediatric' onScriptChange={onScriptChange}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Aclasta" type="outp" script='aclasta' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Aclasta" id="outp" name='aclasta' onScriptChange={onScriptChange}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Bicillin" type="outp" script='bicillin' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Bicillin" id="outp" name='bicillin' onScriptChange={onScriptChange}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Binocrit" type="outp" script='binocrit' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Binocrit" id="outp" name='binocrit' onScriptChange={onScriptChange}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Eylea" type="outp" script='eylea' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Eylea" id="outp" name='eylea' onScriptChange={onScriptChange}/>   
                             <div className='p-1'></div>   
-                            <ScriptInput label="Ferinject" type="outp" script='ferinject' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Ferinject" id="outp" name='ferinject' onScriptChange={onScriptChange}/>   
                         </div>
 
                         <div className='p-3'></div>
@@ -225,15 +184,15 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>GP</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" type="gp" script='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="gp" name='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" type="gp" script='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="gp" name='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" type="gp" script='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="gp" name='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" type="gp" script='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="gp" name='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" type="gp" script='paediatric' onScriptChange={onScriptChange}/>  
+                            <ScriptInput label="Paediatrics" id="gp" name='paediatric' onScriptChange={onScriptChange}/>  
                          </div>
 
                         <div className='p-3'></div>
@@ -241,62 +200,18 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>ED</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" type="ed" script='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="ed" name='other' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" type="ed" script='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="ed" name='blisterPacks' onScriptChange={onScriptChange}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" type="ed" script='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="ed" name='yellowCards' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" type="ed" script='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="ed" name='compounding' onScriptChange={onScriptChange}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" type="ed" script='paediatric' onScriptChange={onScriptChange}/>    
+                            <ScriptInput label="Paediatrics" id="ed" name='paediatric' onScriptChange={onScriptChange}/>    
                         </div>
                     </div>
-                </div>
-
-                <div className='p-1'></div>
-
-                {/* Interventions  */}
-                <div className='flex flex-col w-full'>
-                    <div className='w-full h-full '>
-
-                        <div className='w-full bg-secondary p-3'>
-                            <h2 className='text-white'>Interventions</h2>
-                        </div>
-
-                        {interventions.length > 0 && interventions.map((value, index)=>{
-                            return(
-                                <IssueItem key={index} value={value}/>
-                            )
-                        })}
-
-                        <div className='m-3 text-center'>
-                            <button onClick={()=>{openInterventionModal()}} className='p-3 w-[90%] hover:bg-off-white bg-light-grey rounded-md '>New issue +</button>
-                        </div>
-
-                    </div>
-                </div>
-                <div className='p-1'></div>
-                {/* Errors  */}
-                <div className='flex flex-col w-full'>
-                    <div className='w-full h-full '>
-
-                        <div className='w-full bg-secondary p-3'>
-                            <h2 className='text-white'>Errors</h2>
-                        </div>
-
-                        {errors.length > 0 && errors.map((value, index)=>{
-                            return(
-                                <IssueItem key={index} value={value}/>
-                            )
-                        })}
-
-                        <div className='m-3 text-center'>
-                            <button onClick={()=>{openErrorModal()}} className='p-3 w-[90%] hover:bg-off-white bg-light-grey rounded-md '>New issue +</button>
-                        </div>
-
-                    </div>
-                </div>
+                </div>                
             </div>
             <div className='w-full mt-10'>
                 <button onClick={()=>{handleSubmit()}} className='p-3 bg-secondary w-full text-white'>Submit</button>
