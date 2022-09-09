@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
-import IssueItem from '../components/IssueItem';
-import IssueModal from '../components/NewEntry/AddInterventionModal'
-import LogNumInput from '../components/LogNumInput'
 import Router from "next/router";
 import { Issue } from '../types/Log';
 import { useSession } from 'next-auth/react';
-import AddInterventionModal from '../components/NewEntry/AddInterventionModal';
-import AddErrorModal from '../components/NewEntry/AddErrorModal';
 import ScriptInput from '../components/ScriptInput';
 import { sum, sumAll } from '../util/functions';
 import InterventionInput from '../components/NewEntry/InterventionInput';
@@ -16,14 +11,10 @@ const NewLog = () => {
 
     const {data: session} = useSession();
 
-    // Modal state
-    const [showErrorsModal, setShowErrorsModal] = useState(false);
-
     // Entry obj state
     const [date, setDate] = useState(new Date().toLocaleDateString('en-CA'))
     const [interventions, setInterventions] = useState<Issue[]>([])
     const [errors, setErrors] = useState<Issue[]>([])
-
     const [data, setData] = useState({
         discharge: {
             compounding: 0,
@@ -66,7 +57,10 @@ const NewLog = () => {
 
     // handle onChange for custom script inputs
     const onScriptChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setData({...data, [e.target.id]: {...data[e.target.id as keyof typeof data], [e.target.name]: e.target.value}})
+        setData({
+                ...data, [e.target.id]:
+                {...data[e.target.id as keyof typeof data], [e.target.name]: e.target.value}
+            })
     }
 
     // format obj to store in db
