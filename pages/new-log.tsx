@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import IssueItem from '../components/IssueItem';
-import IssueModal from '../components/AddInterventionModal'
+import IssueModal from '../components/NewEntry/AddInterventionModal'
 import LogNumInput from '../components/LogNumInput'
 import Router from "next/router";
 import { Issue } from '../types/Log';
 import { useSession } from 'next-auth/react';
-import AddInterventionModal from '../components/AddInterventionModal';
-import AddErrorModal from '../components/AddErrorModal';
+import AddInterventionModal from '../components/NewEntry/AddInterventionModal';
+import AddErrorModal from '../components/NewEntry/AddErrorModal';
 import ScriptInput from '../components/ScriptInput';
 import { sum, sumAll } from '../util/functions';
+import InterventionInput from '../components/NewEntry/InterventionInput';
+import ErrorInput from '../components/NewEntry/ErrorInput';
 
 const NewLog = () => {
 
     const {data: session} = useSession();
 
     // Modal state
-    const [showInterventionsModal, setShowInterventionsModal] = useState(false);
     const [showErrorsModal, setShowErrorsModal] = useState(false);
 
     // Entry obj state
@@ -63,26 +64,6 @@ const NewLog = () => {
         }
     })
 
-    const openInterventionModal = () => {
-        setShowInterventionsModal(true)
-        document.querySelector('body')?.classList.add('overflow-hidden')
-    }
-
-    const closeInterventionModal = () => {
-        setShowInterventionsModal(false)
-        document.querySelector('body')?.classList.remove('overflow-hidden')
-    }
-
-    const openErrorModal = () => {
-        setShowErrorsModal(true)
-        document.querySelector('body')?.classList.add('overflow-hidden')
-    }
-
-    const closeErrorModal = () => {
-        setShowErrorsModal(false)
-        document.querySelector('body')?.classList.remove('overflow-hidden')
-    }
-
     // handle onChange for custom script inputs
     const onScriptChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setData({...data, [e.target.id]: {...data[e.target.id as keyof typeof data], [e.target.name]: e.target.value}})
@@ -122,9 +103,6 @@ const NewLog = () => {
     <div className={`h-[72px] w-full`}></div>
     {session ? 
     <>
-    <AddInterventionModal interventions={interventions} setInterventions={setInterventions} show={showInterventionsModal} handleClose={()=>closeInterventionModal()}/>
-    <AddErrorModal errors={errors} setErrors={setErrors} show={showErrorsModal} handleClose={()=>closeErrorModal()}/>
-
     <div className='bg-white'>
         <div className='w-full max-w-[600px] m-auto bg-white p-10 flex flex-col justify-between'>
         <div>
@@ -213,6 +191,19 @@ const NewLog = () => {
                     </div>
                 </div>                
             </div>
+
+            {/* Interventions  */}
+            <InterventionInput 
+                interventions={interventions} 
+                setInterventions={setInterventions} 
+            />
+
+            {/* Errors  */}
+            <ErrorInput 
+                errors={errors} 
+                setErrors={setErrors} 
+            />
+
             <div className='w-full mt-10'>
                 <button onClick={()=>{handleSubmit()}} className='p-3 bg-secondary w-full text-white'>Submit</button>
             </div>
