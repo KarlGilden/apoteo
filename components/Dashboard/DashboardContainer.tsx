@@ -21,7 +21,7 @@ const DashboardContainer = ({dateFrom, dateTo}:IProps) => {
   }, [dateFrom, dateTo])
 
   const getData = async () => {
-    await fetch('/api/logs/sum/' + `${dateFrom}/${dateTo}`, {
+    await fetch('/api/scripts/sum/' + `${dateFrom}/${dateTo}`, {
       method: 'GET',
       headers: {"Content-Type": "application/json"}
     }).then(response => response.json())

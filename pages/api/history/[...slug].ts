@@ -9,7 +9,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
     }
 
     if(req.method == "GET"){
-        console.log(slug)
         try{
             const pipeline = [
                 {'$match': {

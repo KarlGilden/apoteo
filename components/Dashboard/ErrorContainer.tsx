@@ -28,7 +28,7 @@ const InterventionsContainer = ({dateFrom, dateTo}:IProps) => {
 
 
       const getInterventions = async () => {
-        await fetch('/api/logs/getErrors/' + `${dateFrom}/${dateTo}`, {
+        await fetch('/api/errors/' + `${dateFrom}/${dateTo}`, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
           }).then(response => {

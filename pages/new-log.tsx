@@ -147,7 +147,7 @@ const NewLog = () => {
         logObj.errors = errors
 
         console.log(logObj)
-        await fetch('/api/logs/add', {
+        await fetch('/api/entries/add', {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(logObj)

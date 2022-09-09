@@ -34,7 +34,7 @@ const InterventionsContainer = ({dateFrom, dateTo}:IProps) => {
       }, [dateFrom, dateTo])
 
       const getSum = async () => {
-        await fetch('/api/logs/sumInterventions/' + `${dateFrom}/${dateTo}`, {
+        await fetch('/api/interventions/sum/' + `${dateFrom}/${dateTo}`, {
           method: 'GET',
           headers: {"Content-Type": "application/json"}
         }).then(response => {
@@ -52,7 +52,7 @@ const InterventionsContainer = ({dateFrom, dateTo}:IProps) => {
       }
 
       const getInterventions = async () => {
-        await fetch('/api/logs/getInterventions/' + `${dateFrom}/${dateTo}`, {
+        await fetch('/api/interventions/' + `${dateFrom}/${dateTo}`, {
             method: 'GET',
             headers: {"Content-Type": "application/json"}
           }).then(response => {
