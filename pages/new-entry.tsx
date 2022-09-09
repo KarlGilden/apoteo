@@ -86,16 +86,15 @@ const NewLog = () => {
             sum: sumAll(data)
         }
 
-        console.log(entry)
-        // await fetch('/api/entries/add', {
-        //     method: 'PUT',
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify(logObj)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     Router.push("/dashboard");
-        // })
+        await fetch('/api/entries/add', {
+            method: 'PUT',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(entry)
+        })
+        .then(response => response.json())
+        .then(data => {
+            Router.push("/dashboard");
+        })
     }
 
   return (
@@ -105,6 +104,8 @@ const NewLog = () => {
     <>
     <div className='bg-white'>
         <div className='w-full max-w-[600px] m-auto bg-white p-10 flex flex-col justify-between'>
+
+        {/* Date  */}
         <div>
             <input 
             value={date} 
@@ -113,10 +114,15 @@ const NewLog = () => {
             onChange={(e)=>setDate(e.target.value)}
             />
         </div>
+
         <div className='p-3'></div>
             <div className='flex flex-col h-full'>
+                
+                {/* Data  */}
                 <div className='flex flex-col sm:flex-row w-full items-center mb-10 sm:items-start'>
                     <div className='w-full'>
+
+                        {/* Discharge  */}
                         <div>
                             <p className='text-xl'>Discharge</p>
                             <hr className=' mb-1' />
@@ -133,6 +139,7 @@ const NewLog = () => {
 
                         <div className='p-3'></div>
 
+                        {/* Out Patient  */}
                         <div>
                             <p className='text-xl'>Out Patient</p>
                             <hr className=' mb-1' />
@@ -159,6 +166,7 @@ const NewLog = () => {
 
                         <div className='p-3'></div>
 
+                        {/* GP  */}
                         <div>
                             <p className='text-xl'>GP</p>
                             <hr className=' mb-1' />
@@ -175,6 +183,7 @@ const NewLog = () => {
 
                         <div className='p-3'></div>
 
+                        {/* ED  */}
                         <div>
                             <p className='text-xl'>ED</p>
                             <hr className=' mb-1' />
