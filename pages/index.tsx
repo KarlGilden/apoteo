@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 
       <div className='flex flex-col sm:flex-row'>
         <div className='sm:w-[50%]'>
-          <h2 className='text-3xl text-white italic '>A web based solution to pharmacy data entry and analysis</h2>
+          <h2 className='text-2xl text-white italic '>A web based solution to pharmacy data entry and analysis</h2>
           
           <div className='p-2'></div>
           
