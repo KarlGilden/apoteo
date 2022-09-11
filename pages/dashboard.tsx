@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSession } from "next-auth/react"
-import { GetServerSideProps, InferGetStaticPropsType, NextPage } from 'next'
+import { NextPage } from 'next'
 import DashboardContainer from '../components/Dashboard/DashboardContainer'
-import { LogData } from '../types/Log'
 import InterventionsContainer from '../components/Dashboard/InterventionsContainer'
 import ErrorContainer from '../components/Dashboard/ErrorContainer'
 import DatesChanger from '../components/Dashboard/DatesChanger'
+import { Line } from 'react-chartjs-2';
+import { LineChart } from '../components/Dashboard/Charts/LineChart'
+
 
 const Dashboard: NextPage  = ()=> {
     const {data: session} = useSession();
@@ -26,7 +28,12 @@ const Dashboard: NextPage  = ()=> {
                 <div className='grid grid-cols-1 gap-5 auto-rows-min md:grid-cols-2'>
                     <DashboardContainer dateFrom={dateFrom} dateTo={dateTo}/>
                     <InterventionsContainer dateFrom={dateFrom} dateTo={dateTo}/>
+                    <div className='bg-white sm:p-5'>
+                        <LineChart dateFrom={dateFrom} dateTo={dateTo}/>
+                    </div>
                     <ErrorContainer dateFrom={dateFrom} dateTo={dateTo}/>
+
+                    
                 </div>
             </div>
             </>
