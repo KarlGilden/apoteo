@@ -13,13 +13,15 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                   "$gte": new Date(slug[0]),
                   "$lte": new Date(slug[1])
                 }
+              }},
+              {"$sort": {
+                "date": 1
               }}
           ];    
           const entries = db.collection("Entries")
           const data = entries.aggregate(pipeline)
 
           let dailyScripts: number[] = [];
-
           let dates: string[] = [];
 
           for await (const doc of data) {
