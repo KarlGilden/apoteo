@@ -37,7 +37,7 @@ const InterventionInput = ({interventions, setInterventions }:IProps) => {
 
             {interventions.length > 0 && interventions.map((value, index)=>{
                 return(
-                    <IssueItem key={index} value={value}/>
+                    <IssueItem key={index} index={index} interventions={interventions} setInterventions={setInterventions} value={value}/>
                 )
             })}
 

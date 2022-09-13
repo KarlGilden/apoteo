@@ -79,16 +79,17 @@ const NewLog = () => {
             errors: errors,
             sum: sumAll(data)
         }
+        console.log(entry)
 
-        await fetch('/api/entries/add', {
-            method: 'PUT',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(entry)
-        })
-        .then(response => response.json())
-        .then(data => {
-            Router.push("/dashboard");
-        })
+        // await fetch('/api/entries/add', {
+        //     method: 'PUT',
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify(entry)
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     Router.push("/dashboard");
+        // })
     }
 
   return (
