@@ -27,10 +27,10 @@ const Dashboard: NextPage  = ()=> {
                 </div>
                 <div className='grid grid-cols-1 gap-5 auto-rows-min md:grid-cols-2'>
                     <DashboardContainer dateFrom={dateFrom} dateTo={dateTo}/>
-                    <InterventionsContainer dateFrom={dateFrom} dateTo={dateTo}/>
                     <div className='bg-white sm:p-5'>
                         <LineChart dateFrom={dateFrom} dateTo={dateTo}/>
                     </div>
+                    <InterventionsContainer dateFrom={dateFrom} dateTo={dateTo}/>
                     <ErrorContainer dateFrom={dateFrom} dateTo={dateTo}/>
 
                     
