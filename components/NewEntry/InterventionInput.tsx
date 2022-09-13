@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import IssueItem from '../IssueItem'
+import InterventionItem from './InterventionItem'
 import AddInterventionModal from './AddInterventionModal'
 
 interface IProps{
@@ -37,7 +37,7 @@ const InterventionInput = ({interventions, setInterventions }:IProps) => {
 
             {interventions.length > 0 && interventions.map((value, index)=>{
                 return(
-                    <IssueItem key={index} index={index} interventions={interventions} setInterventions={setInterventions} value={value}/>
+                    <InterventionItem key={index} index={index} interventions={interventions} setInterventions={setInterventions} value={value}/>
                 )
             })}
 

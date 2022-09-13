@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import EditInterventionModal from './NewEntry/EditInterventionModal';
+import EditInterventionModal from './EditInterventionModal';
 
 interface IProps{
   interventions: any[],
   setInterventions: (issue:any)=>void
 }
 
-const IssueItem = (props:any) => {
+const InterventionItem = (props:any) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -28,7 +28,7 @@ const closeModal = () => {
         handleClose={()=>closeModal()}
         index={props.index}
       />
-      <div onClick={()=>{openModal()}} className='w-full p-3 border-primary-dark bg-light-grey border-b-[1px] border-primary-dark flex items-center justify-between'>
+      <div onClick={()=>{openModal()}} className='w-full cursor-pointer p-3 border-primary-dark bg-light-grey border-b-[1px] border-primary-dark flex items-center justify-between'>
         <p>{props.value.title}</p>
         <div className='flex flex-wrap'>
             {props.value.tags.split(',').map((tag:string, index:number) => {
@@ -43,4 +43,4 @@ const closeModal = () => {
   )
 }
 
-export default IssueItem
+export default InterventionItem

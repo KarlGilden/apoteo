@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import IssueItem from '../IssueItem'
 import AddErrorModal from './AddErrorModal'
+import ErrorItem from './ErrorItem'
 
 interface IProps{
     errors: any[],
@@ -37,7 +37,7 @@ const ErrorInput = ({errors, setErrors }:IProps) => {
 
             {errors.length > 0 && errors.map((value, index)=>{
                 return(
-                    <IssueItem key={index} value={value}/>
+                    <ErrorItem key={index} index={index} errors={errors} setErrors={setErrors} value={value}/>
                 )
             })}
 
