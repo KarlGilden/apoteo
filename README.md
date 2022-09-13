@@ -2,6 +2,12 @@
 
 ## Description
 
+Collecting pharmacy data by hand is time-consuming and difficult to analyse and report. What we
+need is an easy-to-use application for entering data and displaying the data in a clear and concise
+manner.
+
+Below is a description of all the types of data the application collects:
+
 ### Prescription statistics
 
 As an outpatients pharmacy at a hospital, we receive prescriptions from the Outpatients Clinics,
