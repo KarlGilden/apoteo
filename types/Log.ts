@@ -1,6 +1,6 @@
 export type Log = {
     date: Date,
-    data: LogData,
+    data: EntryData,
     issues: Issue[],
     sum: number
 }
@@ -12,7 +12,7 @@ export type Issue = {
     tags: string
 }
 
-export type LogData = {
+export type EntryData = {
     discharge: {
         compounding: number,
         yellowCards: number,

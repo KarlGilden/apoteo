@@ -30,7 +30,6 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
         if(slug && slug[0] == "getSingle"){
           try{
             const entries = db.collection("Entries")
-            console.log(slug[0])
             entries.findOne({'_id':new ObjectId(slug[1])})
               .then(function(doc) {
                 if(!doc){
