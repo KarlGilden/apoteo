@@ -1,7 +1,7 @@
 export const sum = (obj:any) => {
     var sum = 0;
     for( var el in obj ) {
-        if( obj.hasOwnProperty( el ) ) {
+        if( obj.hasOwnProperty( el ) && el != "sum" ) {
           sum += parseFloat( obj[el] );
         }
       }
@@ -11,7 +11,7 @@ export const sum = (obj:any) => {
 export const sumAll = (obj:any) => {
     var sum = 0;
     for( var el in obj ) {
-        if( obj.hasOwnProperty( el ) ) {
+        if( obj.hasOwnProperty( el ) && el != "sum" ) {
           sum += parseFloat( obj[el].sum );
         }
       }
