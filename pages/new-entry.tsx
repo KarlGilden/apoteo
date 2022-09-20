@@ -121,15 +121,15 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>Discharge</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" id="discharge" name='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="discharge" name='other' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" id="discharge" name='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="discharge" name='blisterPacks' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" id="discharge" name='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="discharge" name='yellowCards' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" id="discharge" name='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="discharge" name='compounding' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" id="discharge" name='paediatric' onScriptChange={onScriptChange}/>                     
+                            <ScriptInput label="Paediatrics" id="discharge" name='paediatric' onScriptChange={onScriptChange} data={data}/>                     
                         </div>
 
                         <div className='p-3'></div>
@@ -138,25 +138,25 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>Out Patient</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" id="outp" name='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="outp" name='other' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" id="outp" name='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="outp" name='blisterPacks' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" id="outp" name='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="outp" name='yellowCards' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" id="outp" name='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="outp" name='compounding' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" id="outp" name='paediatric' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Paediatrics" id="outp" name='paediatric' onScriptChange={onScriptChange} data={data}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Aclasta" id="outp" name='aclasta' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Aclasta" id="outp" name='aclasta' onScriptChange={onScriptChange} data={data}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Bicillin" id="outp" name='bicillin' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Bicillin" id="outp" name='bicillin' onScriptChange={onScriptChange} data={data}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Binocrit" id="outp" name='binocrit' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Binocrit" id="outp" name='binocrit' onScriptChange={onScriptChange} data={data}/>   
                             <div className='p-1'></div>
-                            <ScriptInput label="Eylea" id="outp" name='eylea' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Eylea" id="outp" name='eylea' onScriptChange={onScriptChange} data={data}/>   
                             <div className='p-1'></div>   
-                            <ScriptInput label="Ferinject" id="outp" name='ferinject' onScriptChange={onScriptChange}/>   
+                            <ScriptInput label="Ferinject" id="outp" name='ferinject' onScriptChange={onScriptChange} data={data}/>   
                         </div>
 
                         <div className='p-3'></div>
@@ -165,15 +165,15 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>GP</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" id="gp" name='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="gp" name='other' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" id="gp" name='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="gp" name='blisterPacks' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" id="gp" name='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="gp" name='yellowCards' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" id="gp" name='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="gp" name='compounding' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" id="gp" name='paediatric' onScriptChange={onScriptChange}/>  
+                            <ScriptInput label="Paediatrics" id="gp" name='paediatric' onScriptChange={onScriptChange} data={data}/>  
                          </div>
 
                         <div className='p-3'></div>
@@ -182,15 +182,15 @@ const NewLog = () => {
                         <div>
                             <p className='text-xl'>ED</p>
                             <hr className=' mb-1' />
-                            <ScriptInput label="Regular" id="ed" name='other' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Regular" id="ed" name='other' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div> 
-                            <ScriptInput label="Blister Packs" id="ed" name='blisterPacks' onScriptChange={onScriptChange}/>
+                            <ScriptInput label="Blister Packs" id="ed" name='blisterPacks' onScriptChange={onScriptChange} data={data}/>
                             <div className='p-1'></div>
-                            <ScriptInput label="Yellow Cards" id="ed" name='yellowCards' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Yellow Cards" id="ed" name='yellowCards' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Compounding" id="ed" name='compounding' onScriptChange={onScriptChange}/> 
+                            <ScriptInput label="Compounding" id="ed" name='compounding' onScriptChange={onScriptChange} data={data}/> 
                             <div className='p-1'></div>
-                            <ScriptInput label="Paediatrics" id="ed" name='paediatric' onScriptChange={onScriptChange}/>    
+                            <ScriptInput label="Paediatrics" id="ed" name='paediatric' onScriptChange={onScriptChange} data={data}/>    
                         </div>
                     </div>
                 </div>                

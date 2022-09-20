@@ -6,7 +6,7 @@ interface IProps {
     id: string,
     name:string,
     onScriptChange: (e:React.ChangeEvent<HTMLInputElement>) => void,
-    data?:any
+    data:any
 }
 const ScriptInput = ({label, onScriptChange, id, name, data}:IProps) => {
   return (
