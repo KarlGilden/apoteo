@@ -55,7 +55,7 @@ export const LineChart = ({dateFrom, dateTo}:IProps) => {
 
   useEffect(()=>{
     getDailyData()
-  }, [])
+  }, [dateFrom, dateTo])
 
   const getDailyData = async () => {
     await fetch(`/api/chart/daily/${dateFrom}/${dateTo}`)
