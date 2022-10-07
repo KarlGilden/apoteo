@@ -3,11 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {BsGithub} from 'react-icons/bs'
 import {MdOutlineWork} from 'react-icons/md'
-import { useEffect } from 'react'
-import FormInput from '../components/FormInput'
 import HeaderContainer from '../components/HeaderContainer'
-import LoginContainer from '../components/LoginContainer'
 import DashboardImg from '../public/dashboard.jpeg'
+
 const Home: NextPage = () => {
 
   return (

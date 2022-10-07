@@ -5,7 +5,6 @@ import DashboardContainer from '../components/Dashboard/DashboardContainer'
 import InterventionsContainer from '../components/Dashboard/InterventionsContainer'
 import ErrorContainer from '../components/Dashboard/ErrorContainer'
 import DatesChanger from '../components/Dashboard/DatesChanger'
-import { Line } from 'react-chartjs-2';
 import { LineChart } from '../components/Dashboard/Charts/LineChart'
 
 

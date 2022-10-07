@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from "../../../util/db";
-import { ObjectId } from 'mongodb';
 import {Log} from '../../../types/Log'
-import LogNumInput from '../../../components/LogNumInput';
-import { BsCloudy } from 'react-icons/bs';
+
 export default async (req:NextApiRequest, res:NextApiResponse ) => {
   let { db } = await connectToDatabase();
   let { slug } = req.query

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import { useSession } from 'next-auth/react';
 import ScriptInput from '../components/ScriptInput';
 import InterventionInput from '../components/NewEntry/InterventionInput';
@@ -9,7 +9,6 @@ import { sum, sumAll } from '../util/functions';
 
 const Entry = () => {
   const {data: session} = useSession();
-  const [entry, setEntry] = useState<any>();
 
   const [date, setDate] = useState(new Date().toLocaleDateString('en-CA'))
   const [data, setData] = useState<EntryData>()
@@ -63,7 +62,6 @@ const Entry = () => {
       await fetch(`/api/entries/getSingle/${date}`)
       .then(res => res.json())
       .then(e => {
-        setEntry(e)
         setData(e.data)
         setInterventions(e.interventions)
         setErrors(e.errors)
