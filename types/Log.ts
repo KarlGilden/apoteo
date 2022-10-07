@@ -1,7 +1,10 @@
+
+
 export type Log = {
     date: Date,
     data: EntryData,
-    issues: Issue[],
+    interventions: Issue[],
+    errors: Issue[],
     sum: number
 }
 

@@ -15,9 +15,7 @@ const Navbar = () => {
           <>
           <Link href="/dashboard"><a className='text-dark-green'>Dashboard</a></Link>
           <div className='p-2'></div>
-          <Link href="/new-entry"><a className='text-dark-green'>New Entry</a></Link>
-          <div className='p-2'></div>
-          <Link href="/history"><a className='text-dark-green'>History</a></Link>
+          <Link href="/new"><a className='text-dark-green'>New Entry</a></Link>
           <div className='p-2'></div>
           <Link href="/api/auth/signout"><a className='text-white bg-secondary rounded-md px-2 py-1'>Log out</a></Link>
           </>

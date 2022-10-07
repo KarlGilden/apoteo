@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react';
-import ScriptInput from '../../components/ScriptInput';
-import InterventionInput from '../../components/NewEntry/InterventionInput';
-import ErrorInput from '../../components/NewEntry/ErrorInput';
-import { Issue, EntryData } from '../../types/Log';
-import { sum, sumAll } from '../../util/functions';
+import ScriptInput from '../components/ScriptInput';
+import InterventionInput from '../components/NewEntry/InterventionInput';
+import ErrorInput from '../components/NewEntry/ErrorInput';
+import { Issue, EntryData } from '../types/Log';
+import { sum, sumAll } from '../util/functions';
 
 const Entry = () => {
   const {data: session} = useSession();
   const [entry, setEntry] = useState<any>();
-  const router = useRouter()
-  const { slug } = router.query
 
   const [date, setDate] = useState(new Date().toLocaleDateString('en-CA'))
   const [data, setData] = useState<EntryData>()
@@ -46,7 +44,7 @@ const Entry = () => {
         sum: sumAll(data)
     }
     console.log(entry)
-    await fetch(`/api/history/${slug}`, {
+    await fetch(`/api/entries/add`, {
       method: 'PUT',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(entry)
@@ -59,20 +57,17 @@ const Entry = () => {
 
   useEffect(()=>{
     getData()
-  }, [slug])
+  }, [date])
 
   const getData = async () => {
-    if(slug){
-      await fetch(`/api/entries/getSingle/${slug}`)
+      await fetch(`/api/entries/getSingle/${date}`)
       .then(res => res.json())
       .then(e => {
         setEntry(e)
         setData(e.data)
-        setDate(e.date)
         setInterventions(e.interventions)
         setErrors(e.errors)
       })
-    }
   }
 
   return (
@@ -85,7 +80,7 @@ const Entry = () => {
         {/* Date  */}
         <div>
             <input 
-            value={new Date(date).toISOString().split('T')[0]} 
+            value={date} 
             className='bg-transparent text-xl' 
             type="date"
             onChange={(e)=>setDate(e.target.value)}
