@@ -17,12 +17,11 @@ const Entry = () => {
 
   const onScriptChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     if(data){
-      setData({
-        ...data, [e.target.id]:
-        {...data[e.target.id as keyof EntryData], [e.target.name]: parseInt(e.target.value)}
-      })
+        setData({
+          ...data, [e.target.id]:
+          {...data[e.target.id as keyof EntryData], [e.target.name]: parseInt(e.target.value == "" ? "" : e.target.value)}
+        })
     }
-
   }
 
   const handleSubmit = async () => {
