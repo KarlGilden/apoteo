@@ -39,7 +39,7 @@ const AddInterventionModal = ({show, handleClose, interventions, setIntervention
       var newIssue:Issue = {
         title: issueTitle,
         description: issueDesc,
-        tags: issueTags.join()
+        tags: issueTags.join().replace(/(^[,\s]+)|([,\s]+$)/g, '')
       }
 
       setIssueTags([""])

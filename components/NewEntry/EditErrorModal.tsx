@@ -38,7 +38,7 @@ const EditErrorModal = ({show, handleClose, errors, setErrors, index}:IProps) =>
       var newError:Issue = {
         title: issueTitle,
         description: issueDesc,
-        tags: issueTags.join()
+        tags: issueTags.join().replace(/(^[,\s]+)|([,\s]+$)/g, '')
       }
       let tempErrors = [...errors]
       tempErrors[index] = newError

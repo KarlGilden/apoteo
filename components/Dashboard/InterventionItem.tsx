@@ -18,7 +18,7 @@ const InterventionItem = ({intervention, setIntervention, openModal}:IProps) => 
     <div onClick={()=>handleClick()} className='flex items-center justify-between p-3 bg-light-grey border-primary hover:bg-off-white cursor-pointer'>
         <p className='text-dark-green'>{intervention.title}</p>
         <div className='flex items-center'>
-            {intervention.tags.split(",").map((value:any, index:number)=>{
+            {intervention.tags.replace(/(^[,\s]+)|([,\s]+$)/g, '').split(",").map((value:any, index:number)=>{
                 return <small className='px-2 py-1 w-fit bg-secondary text-white border-secondary border-2 rounded-md' key={index}>{value}</small>
             })}
         </div>

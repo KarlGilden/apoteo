@@ -31,7 +31,7 @@ const InterventionModal = ({intervention, handleClose, show}:IProps) => {
             <div>
                 <p>{intervention.description}</p>
                 <div className='p-5'></div>
-                <p className='px-2 py-1 w-fit bg-secondary text-white border-secondary border-2 rounded-md'>{intervention.tags}</p>
+                <p className='px-2 py-1 w-fit bg-secondary text-white border-secondary border-2 rounded-md'>{intervention.tags.replace(/(^[,\s]+)|([,\s]+$)/g, '')}</p>
             </div>
     
           </div>

@@ -39,7 +39,7 @@ const EditInterventionModal = ({show, handleClose, interventions, setInterventio
       var newIntervention:Issue = {
         title: issueTitle,
         description: issueDesc,
-        tags: issueTags.join()
+        tags: issueTags.join().replace(/(^[,\s]+)|([,\s]+$)/g, '')
       }
       let tempInterventions = [...interventions]
       tempInterventions[index] = newIntervention
