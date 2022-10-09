@@ -59,7 +59,9 @@ const Entry = () => {
   }, [date])
 
   const getData = async () => {
-      await fetch(`/api/entries/getSingle/${date}`)
+      await fetch(`/api/entries/getSingle/${date}`,{
+        method: 'GET'
+      })
       .then(res => res.json())
       .then(e => {
         setData(e.data)

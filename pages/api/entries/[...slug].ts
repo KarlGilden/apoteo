@@ -85,6 +85,7 @@ export default async (req:NextApiRequest, res:NextApiResponse ) => {
                     sum: 0
                   }
                   res.status(200).json(newDoc)
+                  return
                 }
                 res.status(200).json(doc)
   })
