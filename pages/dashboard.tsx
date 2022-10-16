@@ -10,8 +10,16 @@ import { LineChart } from '../components/Dashboard/Charts/LineChart'
 
 const Dashboard: NextPage  = ()=> {
     const {data: session} = useSession();
-    const [dateFrom, setDateFrom] = useState("2022-09-01")
-    const [dateTo, setDateTo] = useState("2022-09-30")
+    const [dateFrom, setDateFrom] = useState(new Date(new Date().setDate(1)).toLocaleDateString('en-CA'))
+    const [dateTo, setDateTo] = useState(new Date(new Date(new Date().setMonth(new Date().getMonth()+1)).setDate(0)).toLocaleDateString('en-CA'))
+    // set start of current month
+    // var monthStart = new Date();
+    // monthStart.setDate(1)
+
+    // // set end of current month
+    // var monthEnd = new Date();
+    // monthEnd.setMonth(monthEnd.getMonth()+1)
+    // monthEnd.setDate(0)
     return(        
         <>
         <div className={`h-[72px] w-full bg-transparent`}></div>
